@@ -185,7 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 20,
               ),
-              Stack(children: [
+              Stack(
+                children: [
                 ClipPath(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
