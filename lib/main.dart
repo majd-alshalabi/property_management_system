@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:property_management_system/feature/constant/colors.dart';
+import 'package:property_management_system/feature/login_screen/login_screen.dart';
 import 'package:property_management_system/feature/splash_screen/slpash_screen.dart';
 import 'package:property_management_system/injection_container.dart';
 
@@ -18,8 +20,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+      ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: LoginScreen(),
     );
   }
 }
