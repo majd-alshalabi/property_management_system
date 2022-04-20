@@ -185,18 +185,20 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 20,
               ),
-              Stack(
-                children: [ClipPath(
+              Stack(children: [
+                ClipPath(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 250,
-                    color: Colors.teal,
+                    color: Colors.red,
                   ),
-                  clipper: WaveClipperTwo(flip: true, reverse: true,),
+                  clipper: WaveClipperTwo(
+                    flip: true,
+                    reverse: true,
+                  ),
                 ),
                 Button(text: "login", onPressed: () {})
-                ]),
-              
+              ]),
             ],
           ),
         ),
