@@ -190,14 +190,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 250,
-                    color: Colors.red,
+                    color: teal,
                   ),
                   clipper: WaveClipperTwo(
                     flip: true,
                     reverse: true,
                   ),
                 ),
-                Button(text: "login", onPressed: () {})
+                CustomButton(text: "login", onPressed: () {})
               ]),
             ],
           ),

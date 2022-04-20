@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:property_management_system/feature/constant/colors.dart';
 
-class Button extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final String text;
   final Function() onPressed;
-  const Button({Key? key, required this.text, required this.onPressed})
+  const CustomButton({Key? key, required this.text, required this.onPressed})
       : super(key: key);
 
   @override
