@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:property_management_system/feature/constant/colors.dart';
+
+import '../constant/colors.dart';
+
 
 class defaultFormField extends StatelessWidget {
   final double width, height;

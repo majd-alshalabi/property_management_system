@@ -1,48 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:property_management_system/feature/reigster/reigster_screen.dart';
+import 'package:property_management_system/feature/login_screen/login_screen.dart';
 
 import '../../core/componets/customBotton.dart';
 import '../../core/componets/text_form_field.dart';
 import '../../core/constant/colors.dart';
 
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class ReigsterScreen extends StatefulWidget {
+  const ReigsterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ReigsterScreen> createState() => _ReigsterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ReigsterScreenState extends State<ReigsterScreen> {
+  final formKey = GlobalKey<FormState>();
+  bool isPassword = true;
+  bool isConfirmPassword = true;
+  final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-
-  bool isPassword = true;
+  final confirmpasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Form(
+          key: formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipPath(
                 child: Container(
                   width: width,
-                  height: 200,
+                  height: 170,
                   color: teal,
                 ),
                 clipper: WaveClipperOne(),
               ),
-              const SizedBox(
-                height: 25,
+              SizedBox(
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -50,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   right: 30.0,
                 ),
                 child: const Text(
-                  'Log In',
+                  'Reigster',
                   style: TextStyle(
                     fontSize: 60,
                     fontWeight: FontWeight.bold,
@@ -59,13 +58,35 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(
-                height: 24,
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                 child: defaultFormField(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  height: 55.0,
+                  height: 50.0,
+                  controller: usernameController,
+                  hintText: 'Full Name',
+                  prefix: Icons.person_rounded,
+                  keyboard: TextInputType.text,
+                  validator: (value) {
+                    if (value.isEmpty || value.length < 4) {
+                      return "enter valid full name";
+                    }
+                  },
+                  onTap: () {
+                    return 'mm';
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                child: defaultFormField(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: 50.0,
                   controller: emailController,
                   hintText: 'Email',
                   prefix: Icons.email_outlined,
@@ -88,14 +109,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20.0,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                 child: defaultFormField(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  height: 55.0,
+                  height: 50.0,
                   controller: passwordController,
                   hintText: 'Password',
                   onTap: () {
@@ -119,34 +140,44 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20.0,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 40.0),
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        print("object");
-                      },
-                      child: const Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          color: teal,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
+                padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                child: defaultFormField(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: 50.0,
+                  controller: confirmpasswordController,
+                  hintText: 'Confirm Password',
+                  onTap: () {
+                    return 'mm';
+                  },
+                  prefix: Icons.password,
+                  isPassword: isConfirmPassword,
+                  suffix: isConfirmPassword
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  suffixPressed: () {
+                    setState(() {
+                      isConfirmPassword = !isConfirmPassword;
+                    });
+                  },
+                  keyboard: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return value.length < 8
+                          ? "Enter Password 6+ characters"
+                          : null;
+                    }
+                  },
                 ),
               ),
-              const SizedBox(
-                height: 10.0,
+              SizedBox(
+                height: 20.0,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20.0),
+                padding: const EdgeInsets.only(left: 30.0),
                 child: Row(
                   children: [
                     Card(
@@ -157,8 +188,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           margin: const EdgeInsets.only(
                               left: 10, right: 10, top: 10, bottom: 10),
                           constraints: const BoxConstraints.expand(
-                            width: 40,
-                            height: 40,
+                            width: 30,
+                            height: 30,
                           ),
                           decoration: const BoxDecoration(
                             image: DecorationImage(
@@ -198,20 +229,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const Spacer(
-                      flex: 10,
+                      flex: 5,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: 25,
               ),
-              Stack(
-                children: [
+              Stack(children: [
                 ClipPath(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 200,
+                    height: 170,
                     color: teal,
                   ),
                   clipper: WaveClipperTwo(
@@ -220,20 +250,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Positioned(
-                  bottom: 80,
+                  bottom: 50,
                   right: 30,
                   child: CustomButton(
-                    text: "Login",
+                    text: "Reigster",
                     onPressed: () {},
                   ),
                 ),
                 Positioned(
-                  bottom: 70,
+                  bottom: 45,
                   left: 30,
                   child: Column(
                     children: [
                       const Text(
-                        "Don't have an Account ?",
+                        "Alreafy have an Account ?",
                         style: TextStyle(
                           color: white,
                           fontSize: 15.0,
@@ -246,11 +276,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const ReigsterScreen(),
+                                  builder: (context) => const LoginScreen(),
                                 ));
                           },
                           child: Text(
-                            "Sign Up",
+                            "Log in",
                             style: TextStyle(
                               color: white,
                               fontSize: 15.0,

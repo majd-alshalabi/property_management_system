@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:property_management_system/feature/constant/colors.dart';
 
-class Button extends StatelessWidget {
+import '../constant/colors.dart';
+
+class CustomButton extends StatelessWidget {
   final String text;
   final Function() onPressed;
-  const Button({Key? key, required this.text, required this.onPressed})
+  const CustomButton({Key? key, required this.text, required this.onPressed})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
-    double height = screenSize.height;
     return SizedBox(
-      height: 56,
+      height: 60,
       width: width / 3,
-      child: OutlinedButton(
+      child: ElevatedButton(
+
           onPressed: onPressed,
           child: FittedBox(
             fit: BoxFit.contain,
             child: Text(
               text,
-              style: const TextStyle(color: yellow, fontSize: 25),
+              style: const TextStyle(
+                color: white,
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'ACaslonPro Bold',
+              ),
+
             ),
           ),
           style: OutlinedButton.styleFrom(

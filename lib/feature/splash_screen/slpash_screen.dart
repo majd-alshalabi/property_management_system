@@ -4,6 +4,8 @@ import 'package:property_management_system/feature/map_screen/map_screen.dart';
 import 'package:property_management_system/feature/splash_screen/bloc/splash_screen_bloc.dart';
 import 'package:property_management_system/injection_container.dart';
 
+import '../../core/constant/colors.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -29,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
             alignment: Alignment.center,
             children: [
               Container(
-                color: Colors.teal,
+                color: teal,
               ),
               if (state is SplashScreenRejectPermissionState)
                 Positioned(
@@ -53,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         Text(
                           'map Permission is needed so you can see the property location on map.',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: white,
                             fontSize: 14,
                           ),
                         ),
