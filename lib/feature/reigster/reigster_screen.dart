@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:property_management_system/core/helper/http_helper.dart';
+import 'package:property_management_system/core/model/register_model/register_params.dart';
+import 'package:property_management_system/core/model/register_model/register_response.dart';
 import 'package:property_management_system/feature/login_screen/login_screen.dart';
 
 import '../../core/componets/customBotton.dart';
@@ -254,7 +257,14 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                   right: 30,
                   child: CustomButton(
                     text: "Reigster",
-                    onPressed: () {},
+                    onPressed: () async {
+                      (await HttpHelper().register(RegisterParams(
+                              email: "sddsd@SDsd.ds",
+                              name: "sdsd",
+                              password: "sddsdsd")))
+                          .either((left) => print('from left $left'),
+                              (right) => print('from Right $right'));
+                    },
                   ),
                 ),
                 Positioned(
