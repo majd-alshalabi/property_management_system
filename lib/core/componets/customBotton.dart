@@ -16,6 +16,7 @@ class CustomButton extends StatelessWidget {
       height: 60,
       width: width / 3,
       child: ElevatedButton(
+
           onPressed: onPressed,
           child: FittedBox(
             fit: BoxFit.contain,
@@ -27,6 +28,7 @@ class CustomButton extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 fontFamily: 'ACaslonPro Bold',
               ),
+
             ),
           ),
           style: OutlinedButton.styleFrom(
