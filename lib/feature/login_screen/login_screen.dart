@@ -7,7 +7,6 @@ import '../../core/componets/customBotton.dart';
 import '../../core/componets/text_form_field.dart';
 import '../../core/constant/colors.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -206,8 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 30,
               ),
-              Stack(
-                children: [
+              Stack(children: [
                 ClipPath(
                   child: Container(
                     width: MediaQuery.of(context).size.width,

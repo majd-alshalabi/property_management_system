@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:either_dart/either.dart';
 import 'package:http/http.dart' as http;
+import 'package:property_management_system/core/model/login_model/login_params.dart';
+import 'package:property_management_system/core/model/login_model/login_response.dart';
 import 'package:property_management_system/core/model/register_model/register_params.dart';
 import 'package:property_management_system/core/model/register_model/register_response.dart';
 
@@ -15,6 +17,18 @@ class HttpHelper {
       var response = await http.post(url, body: params.toJson());
       var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
       return Left(RegisterResponse.fromJson(decodedResponse));
+    } catch (e) {
+      return Right('error while connecting');
+    }
+  }
+
+  Future<Either<LoginResponse, String>> login(LoginParams params) async {
+    try {
+      var url = Uri.parse(baseUrl_api + "/login");
+      print(params.toJson());
+      var response = await http.post(url, body: params.toJson());
+      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+      return Left(LoginResponse.fromJson(decodedResponse));
     } catch (e) {
       return Right('error while connecting');
     }
