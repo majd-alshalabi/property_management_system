@@ -9,4 +9,9 @@ class ReigsterScreenLoading extends ReigsterScreenState {}
 
 class ReigsterScreenLoaded extends ReigsterScreenState {}
 
+class ReigsterScreenError extends ReigsterScreenState {
+  String errorMessage;
+  ReigsterScreenError(this.errorMessage);
+}
+
 class ReigsterScreenRejectPermissionState extends ReigsterScreenState {}
