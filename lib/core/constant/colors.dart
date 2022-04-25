@@ -8,6 +8,7 @@ const Color yellow = Color(0xffFDEA03);
 const Color teal = Color(0xFF009688);
 const Color teal1 = Color(0xFF004D40);
 const Color teal2 = Color(0xFF4DB6AC);
+const Color grey = Color(0xFF9E9E9E);
 
 const BoxDecoration gradientBackground = BoxDecoration(
   gradient: LinearGradient(
