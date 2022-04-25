@@ -50,27 +50,67 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
             child: Form(
               key: formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  ClipPath(
-                    child: Container(
-                      width: width,
-                      height: 170,
-                      color: teal,
-                    ),
-                    clipper: WaveClipperOne(),
+                  Stack(
+                    children: [
+                      ClipPath(
+                        child: Container(
+                          width: width,
+                          height: 220,
+                          color: teal,
+                        ),
+                        clipper: WaveClipperOne(),
+                      ),
+                      Positioned(
+                        top: 35,
+                        left: width / 3.5,
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                print("object");
+                              },
+                              onLongPress: () {
+                                print("photo");
+                              },
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: 150,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      color: white,
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: Svg('assets/images/gallary.svg'),
+                                      ),
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            blurRadius: 9, offset: Offset(0, 5))
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                      left: 30.0,
-                      right: 30.0,
+                      right: 150.0,
                     ),
                     child: const Text(
                       'Reigster',
                       style: TextStyle(
-                        fontSize: 60,
+                        fontSize: 50,
                         fontWeight: FontWeight.bold,
                         color: teal,
                       ),
@@ -224,6 +264,15 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                   SizedBox(
                     height: 25,
                   ),
+                  if (state is ReigsterScreenError)
+                    Text(
+                      state.errorMessage,
+                      style: TextStyle(
+                        color: teal,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   Stack(children: [
                     ClipPath(
                       child: Container(
@@ -262,24 +311,23 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                             ),
                           ),
                           ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const LoginScreen(),
-                                    ));
-                              },
-                              child: Text(
-                                "Log in",
-                                style: TextStyle(
-                                  color: white,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Acaslon Regular',
-                                ),
-                              )),
-                          if (state is ReigsterScreenError)
-                            Text(state.errorMessage),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ));
+                            },
+                            child: Text(
+                              "Log in",
+                              style: TextStyle(
+                                color: white,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Acaslon Regular',
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
