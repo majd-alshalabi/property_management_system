@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: ReigsterScreen(),
     );
   }
 }

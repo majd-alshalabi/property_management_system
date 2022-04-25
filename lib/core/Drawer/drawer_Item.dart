@@ -18,7 +18,7 @@ class DrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: SizedBox(
+      child: Container(
         height: 40,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
