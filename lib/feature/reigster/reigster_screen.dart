@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:property_management_system/core/helper/http_helper.dart';
 import 'package:property_management_system/core/model/register_model/register_params.dart';
 import 'package:property_management_system/core/model/register_model/register_response.dart';
@@ -22,6 +25,85 @@ class ReigsterScreen extends StatefulWidget {
 }
 
 class _ReigsterScreenState extends State<ReigsterScreen> {
+  File? _image;
+  final picker = ImagePicker();
+
+  Future upGalleryImage(context) async {
+    var pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(pickedImage!.path);
+    });
+  }
+
+  Future upCameraImage(context) async {
+    var pickedImage = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = File(pickedImage!.path);
+    });
+  }
+
+  // Future<void> selectedImageSource(BuildContext context) {
+  //   return showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: Text(
+  //             "Choose option",
+  //             style: TextStyle(
+  //               color: teal,
+  //               fontWeight: FontWeight.bold,
+  //             ),
+  //           ),
+  //           content: SingleChildScrollView(
+  //             child: ListBody(
+  //               children: [
+  //                 Divider(
+  //                   height: 1,
+  //                   color: teal,
+  //                 ),
+  //                 ListTile(
+  //                   onTap: () {
+  //                     upGalleryImage(context);
+  //                   },
+  //                   title: Text(
+  //                     "Gallery",
+  //                     style: TextStyle(
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                   leading: Icon(
+  //                     Icons.account_box,
+  //                     color: teal,
+  //                   ),
+  //                 ),
+  //                 Divider(
+  //                   height: 1,
+  //                   color: teal,
+  //                 ),
+  //                 ListTile(
+  //                   onTap: () {
+  //                     upCameraImage(context);
+  //                   },
+  //                   title: Text(
+  //                     "Camera",
+  //                     style: TextStyle(
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                   leading: Icon(
+  //                     Icons.camera,
+  //                     color: teal,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       });
+  // }
+
   final formKey = GlobalKey<FormState>();
   bool isPassword = true;
   final usernameController = TextEditingController();
@@ -69,10 +151,10 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                print("object");
+                                upGalleryImage(context);
                               },
                               onLongPress: () {
-                                print("photo");
+                                upCameraImage(context);
                               },
                               child: Stack(
                                 children: [
@@ -91,7 +173,7 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                                             blurRadius: 9, offset: Offset(0, 5))
                                       ],
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
                             ),
