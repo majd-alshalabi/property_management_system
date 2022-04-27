@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:property_management_system/core/helper/http_helper.dart';
 import 'package:property_management_system/core/model/register_model/register_params.dart';
 import 'package:property_management_system/core/model/register_model/register_response.dart';
@@ -117,17 +118,20 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
       body: BlocConsumer(
         bloc: sl<ReigsterScreenBloc>(),
         listener: (context, state) {
-          if (state is ReigsterScreenLoaded) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomeScreen(),
-                ));
+          if (state is ReigsterScreenLoading) {
+            context.loaderOverlay.show();
+          } else {
+            context.loaderOverlay.hide();
+            if (state is ReigsterScreenLoaded) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeScreen(),
+                  ));
+            }
           }
         },
         builder: (context, state) {
-          if (state is ReigsterScreenLoading)
-            return Center(child: CircularProgressIndicator());
           return SingleChildScrollView(
             child: Form(
               key: formKey,
@@ -165,7 +169,10 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                                       color: white,
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: Svg('assets/images/gallary.svg'),
+                                        image: _image == null
+                                            ? Svg('assets/images/gallary.svg')
+                                            : FileImage(File(_image!.path))
+                                                as ImageProvider,
                                       ),
                                       shape: BoxShape.circle,
                                       boxShadow: [
