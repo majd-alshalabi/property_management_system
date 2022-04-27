@@ -13,9 +13,19 @@ class HttpHelper {
       RegisterParams params) async {
     try {
       var url = Uri.parse(baseUrl_api + "/register");
-      print(params.toJson());
-      var response = await http.post(url, body: params.toJson());
-      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+      http.MultipartRequest request = new http.MultipartRequest('POST', url);
+      request.fields.addAll(params.toJson());
+      if (params.image != null)
+        request.files.add(await http.MultipartFile.fromPath(
+          'photo',
+          params.image == null ? '' : params.image!.path,
+        ));
+      http.StreamedResponse response = await request.send();
+      print(response.statusCode);
+      if (response.statusCode >= 300) return Right('error while connecting');
+      final respStr = await response.stream.bytesToString();
+      print(respStr);
+      var decodedResponse = json.decode(respStr);
       return Left(RegisterResponse.fromJson(decodedResponse));
     } catch (e) {
       return Right('error while connecting');

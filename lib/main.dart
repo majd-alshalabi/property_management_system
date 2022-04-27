@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:property_management_system/feature/favorite_screen/favorite_screen.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 import 'package:property_management_system/feature/splash_screen/slpash_screen.dart';
@@ -26,7 +28,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       debugShowCheckedModeBanner: false,
-      home: FavoriteScreen(),
+      home: LoaderOverlay(
+          useDefaultLoading: false,
+          overlayWidget: Center(
+              child: SpinKitSpinningLines(
+            color: Colors.teal,
+            size: 50.0,
+          )),
+          child: ReigsterScreen()),
     );
   }
 }

@@ -1,6 +1,7 @@
 class RegisterResponse {
   bool? success;
   Data? data;
+  String? token;
   String? massage;
 
   RegisterResponse({this.success, this.data, this.massage});
@@ -8,6 +9,7 @@ class RegisterResponse {
   RegisterResponse.fromJson(Map<dynamic, dynamic> json) {
     success = json['success'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    token = json['token'];
     massage = json['massage'];
   }
 
@@ -17,6 +19,7 @@ class RegisterResponse {
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
+    data['token'] = this.token;
     data['massage'] = this.massage;
     return data;
   }
@@ -26,6 +29,8 @@ class Data {
   String? name;
   String? email;
   String? phoneNo;
+  int? user_role;
+  String? userImageUri;
   String? updatedAt;
   String? createdAt;
   int? id;
@@ -35,6 +40,7 @@ class Data {
       this.email,
       this.phoneNo,
       this.updatedAt,
+      this.userImageUri,
       this.createdAt,
       this.id});
 
@@ -42,6 +48,8 @@ class Data {
     name = json['name'];
     email = json['email'];
     phoneNo = json['phone_no'];
+    user_role = json['user_role'];
+    userImageUri = json['photo'];
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
     id = json['id'];
@@ -52,6 +60,8 @@ class Data {
     data['name'] = this.name;
     data['email'] = this.email;
     data['phone_no'] = this.phoneNo;
+    data['user_role'] = this.phoneNo;
+    data['photo'] = this.userImageUri;
     data['updated_at'] = this.updatedAt;
     data['created_at'] = this.createdAt;
     data['id'] = this.id;

@@ -81,10 +81,12 @@ class DatabaseHelper {
           'myIdentity',
           myIdentity.first
               .copyWith(
-                email: identity.email,
-                name: identity.name,
-                token: identity.token,
-              )
+                  email: identity.email,
+                  name: identity.name,
+                  token: identity.token,
+                  imageUrl: identity.imageUrl,
+                  phoneNumber: identity.phoneNumber,
+                  uesr_role: identity.user_role)
               .toMap(),
           where: "id=?",
           whereArgs: [myIdentity.first.id]);
