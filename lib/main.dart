@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:property_management_system/feature/favorite_screen/favorite_screen.dart';
+import 'package:property_management_system/feature/login_screen/login_screen.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 import 'package:property_management_system/feature/splash_screen/slpash_screen.dart';
 import 'package:property_management_system/injection_container.dart';

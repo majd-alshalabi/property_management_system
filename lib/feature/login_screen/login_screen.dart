@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:property_management_system/feature/login_screen/bloc/login_screen_bloc.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 
 import '../../core/componets/customBotton.dart';
 import '../../core/componets/text_form_field.dart';
 import '../../core/constant/colors.dart';
+import '../../injection_container.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -70,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   prefix: Icons.email_outlined,
                   keyboard: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value.isEmpty) {
                       return 'Can\'t be empty';
                     }
                     if (value.length < 6) {
@@ -222,7 +224,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   right: 30,
                   child: CustomButton(
                     text: "Login",
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        sl<LoginScreenBloc>().add(LoginScreenInitEvent());
+                      }
+                    },
                   ),
                 ),
                 Positioned(
