@@ -43,31 +43,84 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         title: Text('My Favorite'),
       ),
       drawer: Drawer(),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: GridView.count(
-          crossAxisCount: 2,
-          padding: EdgeInsets.all(5),
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 30,
-          children: listImage
-              .map(
-                (item) => Card(
-                  elevation: 0,
-                  child: Container(
+      body: Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: GridView.builder(
+            itemCount: 3,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 60,
+              crossAxisSpacing: 1,
+            ),
+            itemBuilder: (context, index) {
+              return favorite();
+            }),
+      ),
+    );
+  }
+
+  Widget favorite() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              child: Stack(
+                children: [
+                  Container(
+                    height: 180,
+                    width: 160,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      // color: grey,
                       image: DecorationImage(
-                        image: AssetImage(item),
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
+                        image: AssetImage('assets/images/123.jpg'),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          spreadRadius: 5.0,
+                          blurRadius: 25,
+                          color: grey.withOpacity(0.7),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(25),
                     ),
-                    child: Container(),
                   ),
-                ),
-              )
-              .toList(),
+                  Positioned(
+                    right: 10,
+                    top: 10,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.favorite),
+                      color: Colors.blueAccent,
+                      iconSize: 30,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'almaf',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.blueAccent,
+              ),
+            ),
+            Text(
+              'almaf',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.blueAccent,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
         ),
       ),
     );

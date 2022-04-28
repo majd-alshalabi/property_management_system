@@ -362,7 +362,8 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                  Stack(children: [
+                  Stack(
+                    children: [
                     ClipPath(
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -380,8 +381,10 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                       child: CustomButton(
                         text: "Reigster",
                         onPressed: () async {
-                          sl<ReigsterScreenBloc>()
-                              .add(ReigsterScreenInitEvent());
+                          if (formKey.currentState!.validate()) {
+                            sl<ReigsterScreenBloc>()
+                                .add(ReigsterScreenInitEvent());
+                          }
                         },
                       ),
                     ),
