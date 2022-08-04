@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constant/colors.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
 
 class defaultFormField extends StatelessWidget {
   final double width, height;
@@ -72,19 +73,19 @@ class defaultFormField extends StatelessWidget {
                   ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: teal, width: 2.0),
+              borderSide: BorderSide(color: teal.withOpacity(0.3), width: 1.0),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: teal, width: 2.0),
+              borderSide: BorderSide(color: teal.withOpacity(0.3), width: 1.0),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: teal, width: 2.0),
+              borderSide: BorderSide(color: teal.withOpacity(0.3), width: 1.0),
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: teal, width: 2.0),
+              borderSide: BorderSide(color: teal.withOpacity(0.3), width: 1.0),
             ),
           ),
         ));

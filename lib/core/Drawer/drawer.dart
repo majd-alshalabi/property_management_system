@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage_2/provider.dart';
+import 'package:property_management_system/core/Drawer/bloc/home_drawer_cubit/cubit/home_drawer_cubit.dart';
 import 'package:property_management_system/core/Drawer/drawer_Item.dart';
+import 'package:property_management_system/feature/favorite_screen/favorite_screen.dart';
+import 'package:property_management_system/feature/home_screen/bloc/cubit/home_cubit.dart';
 import 'package:property_management_system/feature/login_screen/login_screen.dart';
+import 'package:property_management_system/feature/map_screen/map_screen.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
+import 'package:property_management_system/feature/settings_screen/settings_screen.dart';
+import 'package:property_management_system/injection_container.dart';
 
 import '../constant/colors.dart';
 
@@ -44,7 +51,17 @@ class AppDrawer extends StatelessWidget {
                         colorFilter: ColorFilter.mode(
                             Colors.black.withOpacity(.7), BlendMode.darken),
                         fit: BoxFit.cover,
-                        image: AssetImage('assets/images/123.jpg'),
+                        image: sl<HomeCubit>().identity == null
+                            ? AssetImage('assets/images/123.jpg')
+                            : AdvancedNetworkImage(
+                                sl<HomeCubit>().identity!.imageUrl ??
+                                    ""
+                                        "",
+                                useDiskCache: true,
+                                cacheRule: const CacheRule(
+                                  maxAge: Duration(days: 7),
+                                ),
+                              ) as ImageProvider,
                       ),
                       color: Colors.grey.shade900,
                       boxShadow: [BoxShadow(blurRadius: 20)],
@@ -62,7 +79,9 @@ class AppDrawer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Mohamad Alnashwati",
+                            sl<HomeCubit>().identity == null
+                                ? "Mohamad Alnashwati"
+                                : sl<HomeCubit>().identity!.name ?? "",
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -70,7 +89,9 @@ class AppDrawer extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Mohamad@gmail.com',
+                            sl<HomeCubit>().identity == null
+                                ? 'Mohamad@gmail.com'
+                                : sl<HomeCubit>().identity!.email ?? "",
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -92,7 +113,17 @@ class AppDrawer extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: AssetImage('assets/images/123.jpg'),
+                            image: sl<HomeCubit>().identity == null
+                                ? AssetImage('assets/images/123.jpg')
+                                : AdvancedNetworkImage(
+                                    sl<HomeCubit>().identity!.imageUrl ??
+                                        ""
+                                            "",
+                                    useDiskCache: true,
+                                    cacheRule: const CacheRule(
+                                      maxAge: Duration(days: 7),
+                                    ),
+                                  ) as ImageProvider,
                           ),
                           color: grey,
                           shape: BoxShape.circle,
@@ -124,7 +155,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 DrawerItem(
                   name: 'Home',
-                  icon: Icons.home,
+                  icon: Icons.home_outlined,
                   onPressed: () => onItemPressed(context, index: 0),
                 ),
                 const SizedBox(
@@ -132,7 +163,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 DrawerItem(
                   name: 'My Favorite',
-                  icon: Icons.favorite,
+                  icon: Icons.favorite_border,
                   onPressed: () => onItemPressed(context, index: 1),
                 ),
                 const SizedBox(
@@ -140,7 +171,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 DrawerItem(
                   name: 'Map',
-                  icon: Icons.location_pin,
+                  icon: Icons.location_city,
                   onPressed: () => onItemPressed(context, index: 2),
                 ),
                 const SizedBox(
@@ -181,62 +212,23 @@ void onItemPressed(BuildContext context, {required int index}) {
 
   switch (index) {
     case 0:
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => const LoginScreen()));
       break;
     case 1:
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+          MaterialPageRoute(builder: (context) => const FavoriteScreen()));
       break;
     case 2:
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => MapScreen()));
       break;
     case 3:
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+          MaterialPageRoute(builder: (context) => const SettingsScreen()));
       break;
     case 4:
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ReigsterScreen()));
+      sl<HomeDrawerCubit>().logout();
       break;
   }
 }
-
-// Widget headerWidget() {
-//   return Padding(
-//     padding: const EdgeInsets.all(15.0),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         const CircleAvatar(
-//           backgroundColor: teal2,
-//           radius: 45,
-//           backgroundImage: AssetImage('assets/images/google.png'),
-//         ),
-//         const SizedBox(
-//           height: 20,
-//         ),
-//         Text(
-//           'Mohamad alnashwati',
-//           style: const TextStyle(
-//             color: black,
-//             fontWeight: FontWeight.bold,
-//             fontSize: 20,
-//           ),
-//         ),
-//         SizedBox(
-//           height: 10,
-//         ),
-//         Text(
-//           'mohamad@email.com',
-//           style: const TextStyle(
-//             color: black,
-//             fontWeight: FontWeight.bold,
-//             fontSize: 20,
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }

@@ -8,8 +8,8 @@ import 'package:property_management_system/core/model/register_model/register_pa
 import 'package:property_management_system/core/model/register_model/register_response.dart';
 
 class HttpHelper {
-  String baseUrl_api = 'http://10.0.2.2:8000/api';
-  Future<Either<RegisterResponse, String>> register(
+  static String baseUrl_api = 'http://10.0.2.2:8000/api';
+  static Future<Either<RegisterResponse, String>> register(
       RegisterParams params) async {
     try {
       var url = Uri.parse(baseUrl_api + "/register");
@@ -24,7 +24,6 @@ class HttpHelper {
       print(response.statusCode);
       if (response.statusCode >= 300) return Right('error while connecting');
       final respStr = await response.stream.bytesToString();
-      print(respStr);
       var decodedResponse = json.decode(respStr);
       return Left(RegisterResponse.fromJson(decodedResponse));
     } catch (e) {
@@ -32,7 +31,7 @@ class HttpHelper {
     }
   }
 
-  Future<Either<LoginResponse, String>> login(LoginParams params) async {
+  static Future<Either<LoginResponse, String>> login(LoginParams params) async {
     try {
       var url = Uri.parse(baseUrl_api + "/login");
       print(params.toJson());

@@ -6,6 +6,8 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:flutter_svg/flutter_svg.dart' as flutterSvg;
+import 'package:property_management_system/core/constant/assets.dart';
 import 'package:property_management_system/core/helper/http_helper.dart';
 import 'package:property_management_system/core/model/register_model/register_params.dart';
 import 'package:property_management_system/core/model/register_model/register_response.dart';
@@ -14,9 +16,9 @@ import 'package:property_management_system/feature/login_screen/login_screen.dar
 import 'package:property_management_system/feature/reigster/bloc/reigster_screen_bloc.dart';
 import 'package:property_management_system/injection_container.dart';
 
-import '../../core/componets/customBotton.dart';
-import '../../core/componets/text_form_field.dart';
-import '../../core/constant/colors.dart';
+import 'package:property_management_system/core/componets/customBotton.dart';
+import 'package:property_management_system/core/componets/text_form_field.dart';
+import 'package:property_management_system/core/constant/colors.dart';
 
 class ReigsterScreen extends StatefulWidget {
   const ReigsterScreen({Key? key}) : super(key: key);
@@ -45,66 +47,6 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
     });
   }
 
-  // Future<void> selectedImageSource(BuildContext context) {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: Text(
-  //             "Choose option",
-  //             style: TextStyle(
-  //               color: teal,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //           ),
-  //           content: SingleChildScrollView(
-  //             child: ListBody(
-  //               children: [
-  //                 Divider(
-  //                   height: 1,
-  //                   color: teal,
-  //                 ),
-  //                 ListTile(
-  //                   onTap: () {
-  //                     upGalleryImage(context);
-  //                   },
-  //                   title: Text(
-  //                     "Gallery",
-  //                     style: TextStyle(
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                   leading: Icon(
-  //                     Icons.account_box,
-  //                     color: teal,
-  //                   ),
-  //                 ),
-  //                 Divider(
-  //                   height: 1,
-  //                   color: teal,
-  //                 ),
-  //                 ListTile(
-  //                   onTap: () {
-  //                     upCameraImage(context);
-  //                   },
-  //                   title: Text(
-  //                     "Camera",
-  //                     style: TextStyle(
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                   leading: Icon(
-  //                     Icons.camera,
-  //                     color: teal,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
-
   final formKey = GlobalKey<FormState>();
   bool isPassword = true;
   final usernameController = TextEditingController();
@@ -114,16 +56,17 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
+    double height = screenSize.height;
     return Scaffold(
       body: BlocConsumer(
         bloc: sl<ReigsterScreenBloc>(),
-        listener: (context, state) {
+        listener: (ctx, state) {
           if (state is ReigsterScreenLoading) {
             context.loaderOverlay.show();
           } else {
             context.loaderOverlay.hide();
             if (state is ReigsterScreenLoaded) {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => HomeScreen(),
@@ -150,7 +93,7 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                       ),
                       Positioned(
                         top: 35,
-                        left: width / 3.5,
+                        left: width / 2 - width * 0.175,
                         child: Column(
                           children: [
                             GestureDetector(
@@ -163,22 +106,21 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                               child: Stack(
                                 children: [
                                   Container(
-                                    height: 150,
-                                    width: 150,
+                                    height: width * 0.35,
+                                    width: width * 0.35,
                                     decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 1,
+                                          color: Colors.black.withOpacity(0.7)),
                                       color: white,
                                       image: DecorationImage(
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.contain,
                                         image: _image == null
-                                            ? Svg('assets/images/gallary.svg')
+                                            ? AssetImage(Assets.defultImage)
                                             : FileImage(File(_image!.path))
                                                 as ImageProvider,
                                       ),
                                       shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 9, offset: Offset(0, 5))
-                                      ],
                                     ),
                                   )
                                 ],
@@ -197,7 +139,7 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                       right: 150.0,
                     ),
                     child: const Text(
-                      'Reigster',
+                      'Register',
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.bold,
@@ -222,9 +164,7 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                           return "enter valid full name";
                         }
                       },
-                      onTap: () {
-                        return 'mm';
-                      },
+                      onTap: () {},
                     ),
                   ),
                   SizedBox(
@@ -252,9 +192,7 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                         }
                         return null;
                       },
-                      onTap: () {
-                        return 'mm';
-                      },
+                      onTap: () {},
                     ),
                   ),
                   SizedBox(
@@ -357,13 +295,12 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                     Text(
                       state.errorMessage,
                       style: TextStyle(
-                        color: teal,
+                        color: Colors.red,
                         fontSize: 20,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
-                  Stack(
-                    children: [
+                  Stack(children: [
                     ClipPath(
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -379,11 +316,15 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                       bottom: 50,
                       right: 30,
                       child: CustomButton(
-                        text: "Reigster",
+                        text: "Register",
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            sl<ReigsterScreenBloc>()
-                                .add(ReigsterScreenInitEvent());
+                            sl<ReigsterScreenBloc>().add(
+                                ReigsterScreenInitEvent(
+                                    email: emailController.text,
+                                    name: usernameController.text,
+                                    password: passwordController.text,
+                                    image: _image));
                           }
                         },
                       ),
@@ -398,11 +339,14 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                             style: TextStyle(
                               color: white,
                               fontSize: 15.0,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w400,
                               fontFamily: 'Acaslon Regular',
                             ),
                           ),
-                          ElevatedButton(
+                          SizedBox(
+                            height: 10,
+                          ),
+                          CustomButton(
                             onPressed: () {
                               Navigator.push(
                                   context,
@@ -410,15 +354,10 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                                     builder: (context) => const LoginScreen(),
                                   ));
                             },
-                            child: Text(
-                              "Log in",
-                              style: TextStyle(
-                                color: white,
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Acaslon Regular',
-                              ),
-                            ),
+                            buttonWidth: width * 0.18,
+                            height: 35,
+                            fontSize: 14,
+                            text: "Log in",
                           ),
                         ],
                       ),

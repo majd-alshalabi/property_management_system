@@ -52,7 +52,7 @@ class DatabaseHelper {
   FutureOr<void> _onCreate(Database db, int version) async {
     // When creating the db, create the table
     await db.execute(
-        "create table myIdentity(id integer primary key autoincrement,token TEXT,name TEXT,email TEXT)");
+        "create table myIdentity(id integer primary key autoincrement,token TEXT,name TEXT,email TEXT,user_role  intger,imageUrl TEXT,phoneNumber TEXT)");
   }
 
   /////////////// Identity

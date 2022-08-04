@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
             color: Colors.teal,
             size: 50.0,
           )),
-          child: SettingsScreen()),
+          child: SplashScreen()),
     );
   }
 }

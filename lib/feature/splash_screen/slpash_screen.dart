@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:property_management_system/feature/home_screen/home_screen.dart';
 import 'package:property_management_system/feature/map_screen/map_screen.dart';
+import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 import 'package:property_management_system/feature/splash_screen/bloc/splash_screen_bloc.dart';
 import 'package:property_management_system/injection_container.dart';
 
-import '../../core/constant/colors.dart';
+import 'package:property_management_system/core/constant/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -80,7 +82,13 @@ class _SplashScreenState extends State<SplashScreen> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MapScreen(),
+                  builder: (context) => HomeScreen(),
+                ));
+          } else if (state is SplashScreenNotRegistered) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReigsterScreen(),
                 ));
           }
         },

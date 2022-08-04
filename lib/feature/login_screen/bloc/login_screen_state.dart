@@ -9,4 +9,8 @@ class LoginScreenLoading extends LoginScreenState {}
 
 class LoginScreenLoaded extends LoginScreenState {}
 
-class LoginScreenRejectPermissionState extends LoginScreenState {}
+class LoginScreenError extends LoginScreenState {
+  final String error;
+
+  LoginScreenError(this.error);
+}
