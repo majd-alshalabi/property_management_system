@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage_2/provider.dart';
 import 'package:property_management_system/core/Drawer/bloc/home_drawer_cubit/cubit/home_drawer_cubit.dart';
 import 'package:property_management_system/core/Drawer/drawer_Item.dart';
+import 'package:property_management_system/core/helper/http_helper.dart';
 import 'package:property_management_system/feature/favorite_screen/favorite_screen.dart';
 import 'package:property_management_system/feature/home_screen/bloc/cubit/home_cubit.dart';
 import 'package:property_management_system/feature/login_screen/login_screen.dart';
@@ -54,9 +55,8 @@ class AppDrawer extends StatelessWidget {
                         image: sl<HomeCubit>().identity == null
                             ? AssetImage('assets/images/123.jpg')
                             : AdvancedNetworkImage(
-                                sl<HomeCubit>().identity!.imageUrl ??
-                                    ""
-                                        "",
+                                'http://10.0.2.2:8000/storage/1659606871default_image.png',
+                                // (sl<HomeCubit>().identity!.imageUrl ?? ""),
                                 useDiskCache: true,
                                 cacheRule: const CacheRule(
                                   maxAge: Duration(days: 7),
