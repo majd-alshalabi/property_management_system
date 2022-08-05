@@ -5,6 +5,7 @@ import 'package:property_management_system/core/helper/database_model/identity_m
 import 'package:property_management_system/core/helper/http_helper.dart';
 import 'package:property_management_system/core/model/login_model/login_params.dart';
 import 'package:property_management_system/core/model/register_model/register_params.dart';
+import 'package:property_management_system/core/utils/account_utils.dart';
 
 part 'login_screen_event.dart';
 part 'login_screen_state.dart';
@@ -14,15 +15,18 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     DatabaseHelper db = DatabaseHelper();
     on<LoginInScreenLoginEvent>((event, emit) async {
       emit(LoginScreenLoading());
+      print('ddfdfdf');
       (await HttpHelper.login(LoginParams(
         email: event.email,
         password: event.password,
       )))
           .either((left) {
+        print(left.data!.email);
         if (left.data != null) {
           db.insertMyIdentity(MyIdentity(
               email: left.data!.email,
-              imageUrl: left.data!.userImageUri,
+              imageUrl:
+                  AccountUtils.setImagePath(left.data!.userImageUri ?? ""),
               name: left.data!.name,
               phoneNumber: left.data!.phoneNo,
               token: left.token,
@@ -32,7 +36,6 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       }, (right) {
         emit(LoginScreenError('error while loading'));
       });
-      emit(LoginScreenLoaded());
     });
   }
 }

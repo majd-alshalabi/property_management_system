@@ -8,11 +8,12 @@ import 'package:property_management_system/core/model/register_model/register_pa
 import 'package:property_management_system/core/model/register_model/register_response.dart';
 
 class HttpHelper {
+  static String url = 'http://10.0.2.2:8000/';
   static String baseUrl_api = 'http://10.0.2.2:8000/api';
   static Future<Either<RegisterResponse, String>> register(
       RegisterParams params) async {
     try {
-      var url = Uri.parse(baseUrl_api + "/register");
+      var url = Uri.parse(baseUrl_api + "/registeruser");
       http.MultipartRequest request = new http.MultipartRequest('POST', url);
       request.fields.addAll(params.toJson());
       if (params.image != null)

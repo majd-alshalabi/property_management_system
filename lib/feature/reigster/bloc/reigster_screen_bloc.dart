@@ -11,6 +11,7 @@ import 'package:property_management_system/core/model/register_model/register_pa
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 import 'package:property_management_system/core/model/register_model/register_response.dart';
+import 'package:property_management_system/core/utils/account_utils.dart';
 part 'reigster_screen_event.dart';
 part 'reigster_screen_state.dart';
 
@@ -33,7 +34,8 @@ class ReigsterScreenBloc
         if (left.data != null) {
           db.insertMyIdentity(MyIdentity(
               email: left.data!.email,
-              imageUrl: left.data!.userImageUri,
+              imageUrl:
+                  AccountUtils.setImagePath(left.data!.userImageUri ?? ""),
               name: left.data!.name,
               phoneNumber: left.data!.phoneNo,
               token: left.token,

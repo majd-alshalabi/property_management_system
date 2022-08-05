@@ -54,13 +54,12 @@ class AppDrawer extends StatelessWidget {
                         fit: BoxFit.cover,
                         image: sl<HomeCubit>().identity == null
                             ? AssetImage('assets/images/123.jpg')
-                            : AdvancedNetworkImage(
-                                'http://10.0.2.2:8000/storage/1659606871default_image.png',
-                                // (sl<HomeCubit>().identity!.imageUrl ?? ""),
-                                useDiskCache: true,
-                                cacheRule: const CacheRule(
-                                  maxAge: Duration(days: 7),
-                                ),
+                            : NetworkImage(
+                                sl<HomeCubit>().identity!.imageUrl ?? "",
+                                // useDiskCache: true,
+                                // cacheRule: const CacheRule(
+                                //   maxAge: Duration(days: 7),
+                                // ),
                               ) as ImageProvider,
                       ),
                       color: Colors.grey.shade900,
@@ -112,17 +111,14 @@ class AppDrawer extends StatelessWidget {
                         width: 120,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            fit: BoxFit.cover,
                             image: sl<HomeCubit>().identity == null
                                 ? AssetImage('assets/images/123.jpg')
-                                : AdvancedNetworkImage(
-                                    sl<HomeCubit>().identity!.imageUrl ??
-                                        ""
-                                            "",
-                                    useDiskCache: true,
-                                    cacheRule: const CacheRule(
-                                      maxAge: Duration(days: 7),
-                                    ),
+                                : NetworkImage(
+                                    sl<HomeCubit>().identity!.imageUrl ?? "",
+                                    // useDiskCache: true,
+                                    // cacheRule: const CacheRule(
+                                    //   maxAge: Duration(days: 7),
+                                    // ),
                                   ) as ImageProvider,
                           ),
                           color: grey,

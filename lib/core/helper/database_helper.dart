@@ -35,7 +35,8 @@ class DatabaseHelper {
   }
 
   deleteMyDatabase() async {
-    await deleteDatabase(join(await getDatabasesPath(), "twin.db"));
+    await deleteDatabase(
+        join(await getDatabasesPath(), "property_managment_system.db"));
   }
 
   FutureOr<void> _onConfigure(Database db) async {

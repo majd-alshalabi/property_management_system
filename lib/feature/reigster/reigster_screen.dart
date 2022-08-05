@@ -34,17 +34,20 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
   Future upGalleryImage(context) async {
     var pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      _image = File(pickedImage!.path);
-    });
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage!.path);
+      });
+    }
   }
 
   Future upCameraImage(context) async {
     var pickedImage = await picker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      _image = File(pickedImage!.path);
-    });
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage!.path);
+      });
+    }
   }
 
   final formKey = GlobalKey<FormState>();
@@ -79,7 +82,7 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
             child: Form(
               key: formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Stack(
                     children: [
@@ -92,8 +95,8 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                         clipper: WaveClipperOne(),
                       ),
                       Positioned(
-                        top: 35,
-                        left: width / 2 - width * 0.175,
+                        top: 50,
+                        left: width / 2 - width * 0.15,
                         child: Column(
                           children: [
                             GestureDetector(
@@ -106,8 +109,8 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                               child: Stack(
                                 children: [
                                   Container(
-                                    height: width * 0.35,
-                                    width: width * 0.35,
+                                    height: width * 0.3,
+                                    width: width * 0.3,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 1,
