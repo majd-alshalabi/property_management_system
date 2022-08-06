@@ -5,6 +5,8 @@ abstract class ReigsterScreenState {}
 
 class ReigsterScreenInitial extends ReigsterScreenState {}
 
+class ReigsterScreenInitial2 extends ReigsterScreenState {}
+
 class ReigsterScreenLoading extends ReigsterScreenState {}
 
 class ReigsterScreenLoaded extends ReigsterScreenState {}

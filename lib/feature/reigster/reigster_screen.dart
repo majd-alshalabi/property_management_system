@@ -36,16 +36,17 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
 
     if (pickedImage != null) {
       setState(() {
-        _image = File(pickedImage!.path);
+        _image = File(pickedImage.path);
       });
     }
   }
 
   Future upCameraImage(context) async {
     var pickedImage = await picker.pickImage(source: ImageSource.camera);
+
     if (pickedImage != null) {
       setState(() {
-        _image = File(pickedImage!.path);
+        _image = File(pickedImage.path);
       });
     }
   }
@@ -230,6 +231,35 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                       },
                     ),
                   ),
+                  BlocBuilder(
+                      bloc: sl<ReigsterScreenBloc>(),
+                      builder: (context, state) {
+                        return DropdownButton<String>(
+                          value: sl<ReigsterScreenBloc>().manager
+                              ? 'admin'
+                              : "normal user",
+                          // icon: const Icon(Icons.arrow_downward),
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.deepPurple),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          onChanged: (String? newValue) {
+                            print(newValue);
+                            sl<ReigsterScreenBloc>().add(
+                                ReigsterScreenDropDownValue(
+                                    newValue == 'admin' ? true : false));
+                          },
+                          items: <String>['admin', "normal user"]
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        );
+                      }),
                   SizedBox(
                     height: 20.0,
                   ),
@@ -323,7 +353,7 @@ class _ReigsterScreenState extends State<ReigsterScreen> {
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             sl<ReigsterScreenBloc>().add(
-                                ReigsterScreenInitEvent(
+                                ReigsterScreenRegisterEvent(
                                     email: emailController.text,
                                     name: usernameController.text,
                                     password: passwordController.text,

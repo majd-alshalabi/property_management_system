@@ -17,38 +17,70 @@ part 'reigster_screen_state.dart';
 
 class ReigsterScreenBloc
     extends Bloc<ReigsterScreenEvent, ReigsterScreenState> {
+  bool manager = false;
   ReigsterScreenBloc() : super(ReigsterScreenInitial()) {
     DatabaseHelper db = DatabaseHelper();
-    on<ReigsterScreenInitEvent>((event, emit) async {
+
+    on<ReigsterScreenRegisterEvent>((event, emit) async {
       emit(ReigsterScreenLoading());
       File? image = event.image;
       if (event.image == null) {
         image = await getImageFileFromAssets(Assets.defultImage);
       }
-      (await HttpHelper.register(RegisterParams(
-              email: event.email,
-              name: event.name,
-              password: event.password,
-              image: image)))
-          .either((left) {
-        if (left.data != null) {
-          db.insertMyIdentity(MyIdentity(
-              email: left.data!.email,
-              imageUrl:
-                  AccountUtils.setImagePath(left.data!.userImageUri ?? ""),
-              name: left.data!.name,
-              phoneNumber: left.data!.phoneNo,
-              token: left.token,
-              user_role: left.data!.user_role));
-          emit(ReigsterScreenLoaded());
-        }
-      }, (right) {
-        print(right);
-        emit(ReigsterScreenError('error while loading'));
-      });
-      ;
+      if (manager) {
+        (await HttpHelper.registerManager(RegisterParams(
+                email: event.email,
+                name: event.name,
+                password: event.password,
+                image: image)))
+            .either((left) {
+          if (left.data != null) {
+            db.insertMyIdentity(MyIdentity(
+                email: left.data!.email,
+                imageUrl:
+                    AccountUtils.setImagePath(left.data!.userImageUri ?? ""),
+                name: left.data!.name,
+                phoneNumber: left.data!.phoneNo,
+                token: left.token,
+                user_role: left.data!.user_role));
+            emit(ReigsterScreenLoaded());
+          }
+        }, (right) {
+          print(right);
+          emit(ReigsterScreenError('error while loading'));
+        });
+      } else {
+        (await HttpHelper.register(RegisterParams(
+                email: event.email,
+                name: event.name,
+                password: event.password,
+                image: image)))
+            .either((left) {
+          if (left.data != null) {
+            db.insertMyIdentity(MyIdentity(
+                email: left.data!.email,
+                imageUrl:
+                    AccountUtils.setImagePath(left.data!.userImageUri ?? ""),
+                name: left.data!.name,
+                phoneNumber: left.data!.phoneNo,
+                token: left.token,
+                user_role: left.data!.user_role));
+            emit(ReigsterScreenLoaded());
+          }
+        }, (right) {
+          print(right);
+          emit(ReigsterScreenError('error while loading'));
+        });
+      }
+    });
+
+    on<ReigsterScreenDropDownValue>((event, emit) {
+      manager = event.value;
+      emit(ReigsterScreenInitial());
+      emit(ReigsterScreenInitial2());
     });
   }
+
   Future<File> getImageFileFromAssets(String path) async {
     final byteData = await rootBundle.load(path);
 
