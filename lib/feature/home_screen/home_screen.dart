@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:property_management_system/core/Drawer/bloc/home_drawer_cubit/cubit/home_drawer_cubit.dart';
 import 'package:property_management_system/core/Drawer/drawer.dart';
 import 'package:property_management_system/core/constant/colors.dart';
+import 'package:property_management_system/feature/add_screen/add_screen.dart';
 import 'package:property_management_system/feature/home_screen/bloc/cubit/home_cubit.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 import 'package:property_management_system/injection_container.dart';
@@ -53,6 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
         )
       ],
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddScreen()));
+        }),
         appBar: AppBar(
           backgroundColor: teal,
           iconTheme: IconThemeData(color: Colors.white),

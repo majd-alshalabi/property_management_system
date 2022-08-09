@@ -68,6 +68,17 @@ class DatabaseHelper {
     return identity;
   }
 
+  getTokenFromMyIdentity() async {
+    Database? db = await createDb();
+    List<MyIdentity>? identity;
+
+    var res = await db!.query("myIdentity");
+    identity = res.isNotEmpty
+        ? res.map((chat) => MyIdentity.fromMap(chat)).toList()
+        : [];
+    return identity.first.token;
+  }
+
   insertMyIdentity(MyIdentity identity) async {
     Database? db = await createDb();
     await db!.insert('myIdentity', identity.toMap());

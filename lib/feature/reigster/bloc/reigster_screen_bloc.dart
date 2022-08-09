@@ -27,6 +27,7 @@ class ReigsterScreenBloc
       if (event.image == null) {
         image = await getImageFileFromAssets(Assets.defultImage);
       }
+      print(manager);
       if (manager) {
         (await HttpHelper.registerManager(RegisterParams(
                 email: event.email,
