@@ -54,8 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: Scaffold(
         floatingActionButton: FloatingActionButton(onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddScreen()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => AddScreen()));
         }),
         appBar: AppBar(
           backgroundColor: teal,

@@ -99,12 +99,16 @@ class HttpHelper {
     try {
       var url = Uri.parse(baseUrl_api + "/creatEstate");
       print(params.toJson());
-      var response = await http.post(url, body: params.toJson());
+
+      String token = await db.getTokenFromMyIdentity();
+      print(token);
+      var response = await http.post(url,
+          body: params.toJson(), headers: {"Authorization": "Bearer $token"});
       print(response.statusCode);
       print(response.body);
       var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
       print(decodedResponse);
-      return Left('PropertyREsponse.fromJson(decodedResponse)');
+      return Left('');
     } catch (e) {
       print(e);
       return Right('error while connecting');

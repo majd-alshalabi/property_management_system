@@ -53,9 +53,9 @@ class PropertyModel {
     data['lan'] = this.lan.toString();
     data['lat'] = this.lat.toString();
     data['photo'] = this.photo;
-    data['bathroom'] = this.bathroom.toString();
-    data['bedroom'] = this.bedroom.toString();
-    data['propertyType'] = this.propertyType;
+    data['bathroomnumber'] = this.bathroom.toString();
+    data['bedroomnumber'] = this.bedroom.toString();
+    data['propartytype'] = this.propertyType;
     return data;
   }
 }

@@ -16,7 +16,12 @@ class AddScreenCubit extends Cubit<AddScreenCubitState> {
   LatLng? latLng;
 
   void addProperty(PropertyModel model) async {
-    await HttpHelper.addProperty(model);
+    emit(AddScreenCubitUploadedAdding());
+    (await HttpHelper.addProperty(model)).either((left) {
+      emit(AddScreenCubitUploadedAdded());
+    }, (right) {
+      emit(AddScreenCubitUploadedErorr());
+    });
   }
 
   void dispose() {
@@ -26,6 +31,12 @@ class AddScreenCubit extends Cubit<AddScreenCubitState> {
 
   void setLatLng(LatLng lng) {
     latLng = lng;
+    emit(AddScreenCubitInitial());
+    emit(AddScreenCubitLoaded());
+  }
+
+  void removeImage(int index) {
+    fileList.removeAt(index);
     emit(AddScreenCubitInitial());
     emit(AddScreenCubitLoaded());
   }

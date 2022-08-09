@@ -18,3 +18,9 @@ class AddScreenCubitUploaded extends AddScreenCubitState {
 
   AddScreenCubitUploaded(this.id);
 }
+
+class AddScreenCubitUploadedAdding extends AddScreenCubitState {}
+
+class AddScreenCubitUploadedAdded extends AddScreenCubitState {}
+
+class AddScreenCubitUploadedErorr extends AddScreenCubitState {}
