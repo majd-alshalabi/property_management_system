@@ -17,7 +17,7 @@ class DtailsScreern extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              height: 250.0,
+              height: 300.0,
               child: Swiper(
                 itemBuilder: (BuildContext context, int index) {
                   return Image.asset(
