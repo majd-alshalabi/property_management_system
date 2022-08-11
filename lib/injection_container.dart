@@ -3,6 +3,7 @@ import 'package:property_management_system/core/Drawer/bloc/home_drawer_cubit/cu
 import 'package:property_management_system/core/helper/map_permision_helper.dart';
 import 'package:property_management_system/feature/add_screen/bloc/cubit/add_screen_cubit_cubit.dart';
 import 'package:property_management_system/feature/cubit/main_cubit.dart';
+import 'package:property_management_system/feature/details_screen/bloc/details_cubit.dart';
 import 'package:property_management_system/feature/home_screen/bloc/cubit/home_cubit.dart';
 import 'package:property_management_system/feature/login_screen/bloc/login_screen_bloc.dart';
 import 'package:property_management_system/feature/reigster/bloc/reigster_screen_bloc.dart';
@@ -20,6 +21,9 @@ void init() {
 
   sl.registerLazySingleton(
     () => AddScreenCubit(),
+  );
+  sl.registerLazySingleton(
+    () => DetailsCubit(),
   );
   sl.registerLazySingleton(
     () => SplashScreenBloc(),

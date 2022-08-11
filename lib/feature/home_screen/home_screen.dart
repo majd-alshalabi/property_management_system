@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage_2/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:property_management_system/core/Drawer/bloc/home_drawer_cubit/cubit/home_drawer_cubit.dart';
+import 'package:property_management_system/core/Drawer/drawer.dart';
 import 'package:property_management_system/core/constant/colors.dart';
+import 'package:property_management_system/core/model/property_model/property_local_model.dart';
 import 'package:property_management_system/feature/add_screen/add_screen.dart';
+import 'package:property_management_system/feature/details_screen/details_screen.dart';
 import 'package:property_management_system/feature/home_screen/bloc/cubit/home_cubit.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 import 'package:property_management_system/injection_container.dart';
@@ -32,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    HomeCubit bloc = sl<HomeCubit>();
     return MultiBlocListener(
       listeners: [
         BlocListener(
@@ -55,137 +60,155 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: SafeArea(
         child: Scaffold(
+          extendBodyBehindAppBar: true,
           floatingActionButton: FloatingActionButton(onPressed: () {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => AddScreen()));
           }),
-          //drawer: AppDrawer(),
-          body: Column(
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/images/home4.jpg',
-                        ),
-                      ),
-                      color: Colors.grey.shade900,
-                      boxShadow: [BoxShadow(blurRadius: 25)],
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 50,
-                    child: Text(
-                      'Let find your property, my friend ?',
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 8,
-                    left: 25,
-                    child: Container(
-                      height: 50,
-                      width: 280,
-                      child: TextFormField(
-                        cursorColor: white,
-                        controller: searchController,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          hintText: 'Search...',
-                          hintStyle: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey.shade800,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: white.withOpacity(0.3), width: 1.0),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: white.withOpacity(0.3), width: 1.0),
-                          ),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        boxShadow: [BoxShadow(blurRadius: 25)],
-                        color: white.withOpacity(0.9),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 8,
-                    right: 25,
-                    child: CircleAvatar(
-                      backgroundColor: white.withOpacity(0.9),
-                      radius: 24,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.filter_list_alt),
-                        color: Colors.grey.shade800,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+          drawer: AppDrawer(),
+          body: BlocBuilder(
+              bloc: sl<HomeCubit>(),
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    Stack(
                       children: [
-                        Text(
-                          'More Property',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w800,
+                        Container(
+                          height: 200,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                'assets/images/home4.jpg',
+                              ),
+                            ),
+                            color: Colors.grey.shade900,
+                            boxShadow: [BoxShadow(blurRadius: 25)],
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                            ),
                           ),
                         ),
-                        TextButton(
-                          onPressed: () {},
+                        Positioned(
+                          bottom: 50,
                           child: Text(
-                            'View all',
+                            'Let find your property, my friend ?',
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 8,
+                          left: 25,
+                          child: Container(
+                            height: 50,
+                            width: 280,
+                            child: TextFormField(
+                              cursorColor: white,
+                              controller: searchController,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                hintText: 'Search...',
+                                hintStyle: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey.shade800,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide(
+                                      color: white.withOpacity(0.3),
+                                      width: 1.0),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide(
+                                      color: white.withOpacity(0.3),
+                                      width: 1.0),
+                                ),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: [BoxShadow(blurRadius: 25)],
+                              color: white.withOpacity(0.9),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 8,
+                          right: 25,
+                          child: CircleAvatar(
+                            backgroundColor: white.withOpacity(0.9),
+                            radius: 24,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.filter_list_alt),
+                              color: Colors.grey.shade800,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'More Property',
                             style: TextStyle(
                               fontSize: 20,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
-                        ),
-                      ],
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'View all',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  realEstateItem(),
-                ],
-              ),
-            ],
-          ),
+                    Expanded(
+                      child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            return realEstateItem(bloc.li[index], context);
+                          },
+                          itemCount: bloc.li.length,
+                          scrollDirection: Axis.horizontal),
+                    )
+                  ],
+                );
+              }),
         ),
       ),
     );
   }
 }
 
-Widget realEstateItem() {
+Widget realEstateItem(
+    PropertyLocalModel propertyLocalModel, BuildContext context) {
   return GestureDetector(
     onTap: () {
-      print('object');
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return DetailsScreen(
+            id: propertyLocalModel.id ?? -1,
+          );
+        },
+      ));
     },
     child: Container(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -208,7 +231,8 @@ Widget realEstateItem() {
                       topRight: Radius.circular(20)),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/images/home4.jpg'),
+                    image:
+                        AdvancedNetworkImage(propertyLocalModel.photo!.first),
                   ),
                 ),
               ),
@@ -218,7 +242,7 @@ Widget realEstateItem() {
                 child: Row(
                   children: [
                     Text(
-                      'Name Property',
+                      propertyLocalModel.name ?? "",
                       style: TextStyle(
                         fontSize: 25,
                         color: Colors.white,
@@ -229,7 +253,7 @@ Widget realEstateItem() {
                       width: 100,
                     ),
                     Text(
-                      '${160} ',
+                      '${propertyLocalModel.price.toString()} \$',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
@@ -243,7 +267,7 @@ Widget realEstateItem() {
                 bottom: 15,
                 left: 22,
                 child: Text(
-                  'loaction Property',
+                  propertyLocalModel.local ?? "",
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.white,

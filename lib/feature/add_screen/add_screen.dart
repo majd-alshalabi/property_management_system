@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors, avoid_init_to_null, unused_import
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -10,16 +11,13 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:property_management_system/core/componets/components.dart';
 import 'package:property_management_system/core/model/property_model/property_model.dart';
 import 'package:property_management_system/feature/add_screen/bloc/cubit/add_screen_cubit_cubit.dart';
 import 'package:property_management_system/feature/home_screen/bloc/cubit/home_cubit.dart';
 import 'package:property_management_system/feature/map_screen/map_screen.dart';
 import 'package:property_management_system/injection_container.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-
-import 'dart:convert';
-
-import 'package:property_management_system/core/componets/components.dart';
 
 class AddScreen extends StatefulWidget {
   @override
@@ -104,6 +102,7 @@ class _AddScreenState extends State<AddScreen> {
           context.loaderOverlay.show();
         } else if (state is AddScreenCubitUploadedAdded) {
           context.loaderOverlay.hide();
+          sl<HomeCubit>().initState();
           Navigator.pop(context);
         } else if (state is AddScreenCubitUploadedErorr) {
           context.loaderOverlay.hide();
@@ -123,7 +122,7 @@ class _AddScreenState extends State<AddScreen> {
                   ));
                 } else if (sl<AddScreenCubit>().latLng == null) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("must pick your proprty location"),
+                    content: Text("must pick your property location"),
                   ));
                 } else {
                   String imagePathes = '';
