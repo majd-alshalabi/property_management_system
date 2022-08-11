@@ -4,17 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:property_management_system/feature/add_screen/add_screen.dart';
-import 'package:property_management_system/feature/details_screen/details_screen.dart';
-import 'package:property_management_system/feature/favorite_screen/favorite_screen.dart';
-import 'package:property_management_system/feature/login_screen/login_screen.dart';
-import 'package:property_management_system/feature/reigster/reigster_screen.dart';
-import 'package:property_management_system/feature/settings_screen/settings_screen.dart';
 import 'package:property_management_system/feature/splash_screen/slpash_screen.dart';
 import 'package:property_management_system/injection_container.dart';
 
 import 'feature/cubit/main_cubit.dart';
-import 'feature/home_screen/home_screen.dart';
 
 void main() {
   init();
@@ -97,7 +90,7 @@ class MyApp extends StatelessWidget {
             color: Colors.teal,
             size: 50.0,
           )),
-          child: DtailsScreern()),
+          child: SplashScreen()),
     );
   }
 }

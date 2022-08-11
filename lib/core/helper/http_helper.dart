@@ -6,7 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:property_management_system/core/helper/database_helper.dart';
 import 'package:property_management_system/core/model/login_model/login_params.dart';
 import 'package:property_management_system/core/model/login_model/login_response.dart';
+import 'package:property_management_system/core/model/property_model/property_details_model.dart';
 import 'package:property_management_system/core/model/property_model/property_model.dart';
+import 'package:property_management_system/core/model/property_model/property_server_model.dart';
 import 'package:property_management_system/core/model/register_model/register_params.dart';
 import 'package:property_management_system/core/model/register_model/register_response.dart';
 
@@ -114,4 +116,61 @@ class HttpHelper {
       return Right('error while connecting');
     }
   }
+
+  static Future<Either<PropertyServerModel, String>> getAllProperty() async {
+    try {
+      var url = Uri.parse(baseUrl_api + "/listEstates");
+      String token = await db.getTokenFromMyIdentity();
+      print(token);
+
+      var response =
+          await http.get(url, headers: {"Authorization": "Bearer $token"});
+      print(response.body);
+      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+      return Left(PropertyServerModel.fromJson(decodedResponse));
+    } catch (e) {
+      return Right('error while connecting');
+    }
+  }
+
+  static Future<Either<PropertyServerModel, String>> getMapProperty(
+      List<Location> li) async {
+    try {
+      var url = Uri.parse(baseUrl_api + "/searchestateonmap");
+      String token = await db.getTokenFromMyIdentity();
+      print(token);
+
+      var response =
+          await http.post(url, headers: {"Authorization": "Bearer $token"});
+      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+      return Left(PropertyServerModel.fromJson(decodedResponse));
+    } catch (e) {
+      return Right('error while connecting');
+    }
+  }
+
+  static Future<Either<PropertyDetailsModel, String>> getPropertyDetails(
+      int id) async {
+    try {
+      var url = Uri.parse(baseUrl_api + "/viewestate/$id");
+      String token = await db.getTokenFromMyIdentity();
+      print(token);
+
+      var response =
+          await http.get(url, headers: {"Authorization": "Bearer $token"});
+      print(response.body);
+      var decodedResponse =
+          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      return Left(PropertyDetailsModel.fromJson(decodedResponse));
+    } catch (e) {
+      return Right('error while connecting');
+    }
+  }
+}
+
+class Location {
+  final double lat;
+  final double lang;
+
+  Location({required this.lat, required this.lang});
 }

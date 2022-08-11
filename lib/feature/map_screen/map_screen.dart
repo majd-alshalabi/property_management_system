@@ -90,12 +90,14 @@ class _MapScreen extends State<MapScreen> {
               myLocationButtonEnabled: true,
               initialCameraPosition: _initialCameraPosition,
             ),
-            Container(
-              width: 10,
-              height: 10,
-              color: Colors.red,
-            ),
-            Icon(Icons.center_focus_strong),
+            if (widget.locationPicker) ...[
+              Container(
+                width: 10,
+                height: 10,
+                color: Colors.red,
+              ),
+              Icon(Icons.center_focus_strong),
+            ]
           ],
         ),
       ),
