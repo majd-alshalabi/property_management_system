@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
+import 'package:property_management_system/core/componets/components.dart';
+import 'package:property_management_system/feature/comments_screen/comments_screen.dart';
 
 class DtailsScreern extends StatelessWidget {
   List<String> images = [
-    "assets/images/1.jpg",
-    "assets/images/2.jpg",
-    "assets/images/3.jpg"
+    "assets/images/123.jpg",
+    "assets/images/123.jpg",
+    "assets/images/123.jpg",
   ];
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,47 @@ class DtailsScreern extends StatelessWidget {
                 control: const SwiperControl(
                     color: Colors.black87, disableColor: Colors.black),
               )),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              children: [
+                Spacer(),
+                Text("10"),
+                SizedBox(
+                  width: 5.0,
+                ),
+                Icon(
+                  Icons.remove_red_eye,
+                  color: Colors.green,
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                Text("4.3"),
+                SizedBox(
+                  width: 5.0,
+                ),
+                Icon(
+                  Icons.star_rate,
+                  color: Colors.yellow,
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              "Price",
+              style: TextStyle(color: Colors.black, fontSize: 20.0),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.00),
+            child: Text(
+              "1000" "\$",
+              style: TextStyle(color: Colors.green),
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
@@ -47,6 +90,19 @@ class DtailsScreern extends StatelessWidget {
               style: TextStyle(color: Colors.black54, fontSize: 15),
             ),
           ),
+          newbutton(
+              function: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => CommentsScreen())));
+              },
+              height: 50.0,
+              text: "comments",
+              width: double.infinity,
+              color: Colors.white,
+              colortext: Colors.green,
+              colorRaduis: Colors.green)
         ],
       ),
     ));

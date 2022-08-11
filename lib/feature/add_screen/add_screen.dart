@@ -65,12 +65,12 @@ class _AddScreenState extends State<AddScreen> {
                     title: Text("Gallery"),
                     leading: Icon(
                       Icons.account_box,
-                      color: Colors.blueAccent,
+                      color: Colors.green,
                     ),
                   ),
                   Divider(
                     height: 1,
-                    color: Colors.blueAccent,
+                    color: Colors.green,
                   ),
                   ListTile(
                     onTap: () {
@@ -79,7 +79,7 @@ class _AddScreenState extends State<AddScreen> {
                     title: Text("Camera"),
                     leading: Icon(
                       Icons.camera,
-                      color: Colors.blueAccent,
+                      color: Colors.green,
                     ),
                   ),
                 ],

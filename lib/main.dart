@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:property_management_system/feature/add_screen/add_screen.dart';
+import 'package:property_management_system/feature/details_screen/details_screen.dart';
 import 'package:property_management_system/feature/favorite_screen/favorite_screen.dart';
 import 'package:property_management_system/feature/login_screen/login_screen.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
@@ -96,7 +97,7 @@ class MyApp extends StatelessWidget {
             color: Colors.teal,
             size: 50.0,
           )),
-          child: AddScreen()),
+          child: DtailsScreern()),
     );
   }
 }

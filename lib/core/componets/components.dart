@@ -23,7 +23,7 @@ class newbutton extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 40.0,
+        height: 50.0,
         padding: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
