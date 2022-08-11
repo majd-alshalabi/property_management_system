@@ -38,7 +38,7 @@ class _AddScreenState extends State<AddScreen> {
   final bath_room_number = TextEditingController();
   final bed_room_number = TextEditingController();
   final proparty_type = TextEditingController();
-
+  List<bool> isSelectedState = [true, false];
   final name = TextEditingController();
   var fromkey = GlobalKey<FormState>();
 
@@ -165,100 +165,113 @@ class _AddScreenState extends State<AddScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 00.0,
+          title: Text(
+            "Add Proprty",
+            style: TextStyle(
+                color: Colors.black45,
+                fontSize: 23.0,
+                fontWeight: FontWeight.bold),
+          ),
         ),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              child: Form(
-                key: fromkey,
-                child: Column(
-                  children: [
-                    textAdd(
-                      controller: name,
-                      valedat1: (value) {
-                        if (value.isEmpty) {
-                          return 'User name  must not be Empty';
-                        }
-                        return null;
-                      },
-                      label1: 'Proparty Name',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    textAdd(
-                      controller: room_namber,
-                      valedat1: (value) {
-                        if (value.isEmpty) {
-                          return 'User name  must not be Empty';
-                        }
-                        return null;
-                      },
-                      label1: 'RoomNamber',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    textAdd(
-                      controller: bath_room_number,
-                      valedat1: (value) {
-                        if (value.isEmpty) {
-                          return 'User name  must not be Empty';
-                        }
-                        return null;
-                      },
-                      label1: 'BathRoomNumber',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    textAdd(
-                      controller: bed_room_number,
-                      valedat1: (value) {
-                        if (value.isEmpty) {
-                          return 'User name  must not be Empty';
-                        }
-                        return null;
-                      },
-                      label1: 'BedRoomNumber',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    textAdd(
-                      controller: descraption,
-                      valedat1: (value) {
-                        if (value.isEmpty) {
-                          return 'User name  must not be Empty';
-                        }
-                        return null;
-                      },
-                      label1: 'descraption',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    textAdd(
-                      controller: state,
-                      valedat1: (value) {
-                        if (value.isEmpty) {
-                          return 'User name  must not be Empty';
-                        }
-                        return null;
-                      },
-                      label1: 'State',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    BlocBuilder(
-                        bloc: sl<AddScreenCubit>(),
-                        builder: (context, state) {
-                          return Container(
+          child: Container(
+            child: Form(
+              key: fromkey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  textAdd(
+                    typ: TextInputType.text,
+                    controller: name,
+                    valedat1: (value) {
+                      if (value.isEmpty) {
+                        return 'User name  must not be Empty';
+                      }
+                      return null;
+                    },
+                    label1: 'Proparty Name',
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  textAdd(
+                    typ: TextInputType.number,
+                    controller: room_namber,
+                    valedat1: (value) {
+                      if (value.isEmpty) {
+                        return 'User name  must not be Empty';
+                      }
+                      return null;
+                    },
+                    label1: 'RoomNamber',
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  textAdd(
+                    typ: TextInputType.number,
+                    controller: bath_room_number,
+                    valedat1: (value) {
+                      if (value.isEmpty) {
+                        return 'User name  must not be Empty';
+                      }
+                      return null;
+                    },
+                    label1: 'BathRoomNumber',
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  textAdd(
+                    typ: TextInputType.number,
+                    controller: bed_room_number,
+                    valedat1: (value) {
+                      if (value.isEmpty) {
+                        return 'User name  must not be Empty';
+                      }
+                      return null;
+                    },
+                    label1: 'BedRoomNumber',
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  textAdd(
+                    typ: TextInputType.text,
+                    controller: descraption,
+                    valedat1: (value) {
+                      if (value.isEmpty) {
+                        return 'User name  must not be Empty';
+                      }
+                      return null;
+                    },
+                    label1: 'descraption',
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  textAdd(
+                    typ: TextInputType.text,
+                    controller: state,
+                    valedat1: (value) {
+                      if (value.isEmpty) {
+                        return 'User name  must not be Empty';
+                      }
+                      return null;
+                    },
+                    label1: 'State',
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  BlocBuilder(
+                      bloc: sl<AddScreenCubit>(),
+                      builder: (context, state) {
+                        return Center(
+                          child: Container(
                             child: Text(
                               sl<AddScreenCubit>().latLng != null
                                   ? "property location selected"
@@ -268,9 +281,11 @@ class _AddScreenState extends State<AddScreen> {
                                       ? Colors.green
                                       : Colors.red),
                             ),
-                          );
-                        }),
-                    MaterialButton(
+                          ),
+                        );
+                      }),
+                  Center(
+                    child: MaterialButton(
                       textColor: Colors.white,
                       color: Colors.green,
                       onPressed: () {
@@ -283,139 +298,149 @@ class _AddScreenState extends State<AddScreen> {
                       },
                       child: const Text("choose location"),
                     ),
-                    const SizedBox(
-                      height: 8.0,
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      "Price",
+                      style: TextStyle(fontSize: 18.0, color: Colors.black54),
                     ),
-                    SfSlider(
-                      min: 10000,
-                      max: 100000,
-                      value: _values,
-                      showTicks: true,
-                      enableTooltip: true,
-                      minorTicksPerInterval: 1,
-                      onChanged: (dynamic value) {
-                        setState(() {
-                          _values = value;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    BlocBuilder(
-                      bloc: sl<AddScreenCubit>(),
-                      builder: (context, state) {
-                        if (sl<AddScreenCubit>().fileList.isNotEmpty)
-                          return Container(
-                            height: MediaQuery.of(context).size.width * 0.3,
-                            width: MediaQuery.of(context).size.width,
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Stack(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            right: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.01),
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        height:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image: FileImage(
+                  ),
+                  SfSlider(
+                    min: 10000,
+                    max: 100000,
+                    interval: 50000,
+                    value: _values,
+                    showTicks: true,
+                    activeColor: Colors.green,
+                    inactiveColor: Colors.green[100],
+                    enableTooltip: true,
+                    minorTicksPerInterval: 1,
+                    onChanged: (dynamic value) {
+                      setState(() {
+                        _values = value;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  BlocBuilder(
+                    bloc: sl<AddScreenCubit>(),
+                    builder: (context, state) {
+                      if (sl<AddScreenCubit>().fileList.isNotEmpty)
+                        return Container(
+                          height: MediaQuery.of(context).size.width * 0.3,
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          right: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01),
+                                      width: MediaQuery.of(context).size.width *
+                                          0.3,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.3,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image: FileImage(
+                                                  sl<AddScreenCubit>()
+                                                      .fileList[index]
+                                                      .image))),
+                                    ),
+                                    Positioned(
+                                      right: 3,
+                                      top: 1,
+                                      child: InkWell(
+                                          onTap: () {
+                                            sl<AddScreenCubit>()
+                                                .removeImage(index);
+                                          },
+                                          child: Icon(
+                                            Icons.close,
+                                            color: Colors.white,
+                                          )),
+                                    ),
+                                    BlocBuilder(
+                                      bloc: sl<AddScreenCubit>(),
+                                      builder: (context, state) {
+                                        if (sl<AddScreenCubit>()
+                                                .fileList[index]
+                                                .state ==
+                                            ImageState.uploading)
+                                          return Positioned(
+                                              bottom: 0,
+                                              left: 0,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.7),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50)),
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  strokeWidth: 3,
+                                                  color: Colors.greenAccent,
+                                                ),
+                                              ));
+                                        if (sl<AddScreenCubit>()
+                                                .fileList[index]
+                                                .state ==
+                                            ImageState.retry) {
+                                          return Positioned(
+                                              bottom: 3,
+                                              child: InkWell(
+                                                  onTap: () {
                                                     sl<AddScreenCubit>()
-                                                        .fileList[index]
-                                                        .image))),
-                                      ),
-                                      Positioned(
-                                        right: 3,
-                                        top: 1,
-                                        child: InkWell(
-                                            onTap: () {
-                                              sl<AddScreenCubit>()
-                                                  .removeImage(index);
-                                            },
-                                            child: Icon(
-                                              Icons.close,
-                                              color: Colors.white,
-                                            )),
-                                      ),
-                                      BlocBuilder(
-                                        bloc: sl<AddScreenCubit>(),
-                                        builder: (context, state) {
-                                          if (sl<AddScreenCubit>()
-                                                  .fileList[index]
-                                                  .state ==
-                                              ImageState.uploading)
-                                            return Positioned(
-                                                bottom: 0,
-                                                left: 0,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.7),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    strokeWidth: 3,
-                                                    color: Colors.greenAccent,
-                                                  ),
-                                                ));
-                                          if (sl<AddScreenCubit>()
-                                                  .fileList[index]
-                                                  .state ==
-                                              ImageState.retry) {
-                                            return Positioned(
-                                                bottom: 3,
-                                                child: InkWell(
-                                                    onTap: () {
-                                                      sl<AddScreenCubit>()
-                                                          .reUpload(index);
-                                                    },
-                                                    child: Icon(
-                                                      Icons.upload,
-                                                      color: Colors.white,
-                                                    )));
-                                          }
-                                          return const Offstage();
-                                        },
-                                      )
-                                    ],
-                                  );
-                                },
-                                itemCount:
-                                    sl<AddScreenCubit>().fileList.length),
-                          );
-                        return const Offstage();
-                      },
-                    ),
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 10.0,
+                                                        .reUpload(index);
+                                                  },
+                                                  child: Icon(
+                                                    Icons.upload,
+                                                    color: Colors.white,
+                                                  )));
+                                        }
+                                        return const Offstage();
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                              itemCount: sl<AddScreenCubit>().fileList.length),
+                        );
+                      return const Offstage();
+                    },
+                  ),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      MaterialButton(
+                        textColor: Colors.white,
+                        color: Colors.green,
+                        onPressed: () {
+                          _showChoiceDialog(context);
+                        },
+                        child: const Text(
+                          "Select Image",
                         ),
-                        MaterialButton(
-                          textColor: Colors.white,
-                          color: Colors.black45,
-                          onPressed: () {
-                            _showChoiceDialog(context);
-                          },
-                          child: const Text("Select Image"),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

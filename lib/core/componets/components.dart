@@ -83,7 +83,7 @@ class Mytextform extends StatelessWidget {
           },
           onChanged: (value) {},
           decoration: InputDecoration(
-              border: const UnderlineInputBorder(),
+              border: UnderlineInputBorder(),
               prefixIcon: prefixe,
               labelText: lable,
               suffixIcon: sufix != null
@@ -102,8 +102,13 @@ class textAdd extends StatelessWidget {
   Function valedat1;
   TextEditingController controller;
   String label1;
+  TextInputType typ;
+
   textAdd(
-      {required this.valedat1, required this.controller, required this.label1});
+      {required this.valedat1,
+      required this.controller,
+      required this.label1,
+      required this.typ});
 
   @override
   Widget build(BuildContext context) {
@@ -114,11 +119,13 @@ class textAdd extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: TextFormField(
+          keyboardType: typ,
           controller: controller,
           validator: (value) {
             return valedat1(value);
           },
           decoration: InputDecoration(
+            border: OutlineInputBorder(),
             labelText: label1,
           ),
         ),
