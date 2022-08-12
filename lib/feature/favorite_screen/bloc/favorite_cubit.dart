@@ -1,25 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:property_management_system/core/helper/database_helper.dart';
-import 'package:property_management_system/core/helper/database_model/identity_model.dart';
 import 'package:property_management_system/core/helper/http_helper.dart';
-import 'package:property_management_system/core/model/property_model/property_local_model.dart';
+import 'package:property_management_system/core/model/property_model/my_property_local_model.dart';
 import 'package:property_management_system/core/utils/account_utils.dart';
+import 'package:property_management_system/feature/home_screen/bloc/cubit/home_cubit.dart';
+import 'package:property_management_system/injection_container.dart';
 
-part 'home_state.dart';
+part 'favorite_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
-  MyIdentity? identity;
-  DatabaseHelper db = DatabaseHelper();
-  List<PropertyLocalModel> li = [];
+class FavoriteCubit extends Cubit<FavoriteState> {
+  FavoriteCubit() : super(FavoriteInitial());
+  DatabaseHelper databaseHelper = DatabaseHelper();
+  List<MyPropertyLocalModel> li = [];
 
   void initState() async {
-    List<MyIdentity>? temp = await db.getMyIdentity();
-    if (temp != null && temp.isNotEmpty) {
-      identity = temp.first;
-    }
-    (await HttpHelper.getAllProperty()).either((left) {
+    int id = await databaseHelper.getServerIdFromMyIdentity();
+    (await HttpHelper.getMyProperty(id)).either((left) {
       li = [];
       if (left.data != null) {
         left.data!.forEach((element) {
@@ -30,7 +27,11 @@ class HomeCubit extends Cubit<HomeState> {
             photo[i] = AccountUtils.setImagePath(photo[i]);
           }
 
-          li.add(PropertyLocalModel(
+          li.add(MyPropertyLocalModel(
+              comment: element.comment,
+              commentCount: element.commentCount,
+              likeCount: element.likeCount,
+              user: element.user,
               viewCount: element.viewCount,
               id: element.id,
               name: element.name,
@@ -50,8 +51,14 @@ class HomeCubit extends Cubit<HomeState> {
         });
       }
     }, (right) {});
-    print(li.length);
-    emit(HomeInitial());
-    emit(HomeLoaded());
+    emit(FavoriteInitial());
+    emit(FavoriteLoaded());
+  }
+
+  void deleteProperty(int id) async {
+    (await HttpHelper.deleteProperty(id)).either((left) {
+      initState();
+      sl<HomeCubit>().initState();
+    }, (right) {});
   }
 }

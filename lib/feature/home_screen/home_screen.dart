@@ -8,6 +8,7 @@ import 'package:property_management_system/core/constant/colors.dart';
 import 'package:property_management_system/core/model/property_model/property_local_model.dart';
 import 'package:property_management_system/feature/add_screen/add_screen.dart';
 import 'package:property_management_system/feature/details_screen/details_screen.dart';
+import 'package:property_management_system/feature/filter_screen/filter_screen.dart';
 import 'package:property_management_system/feature/home_screen/bloc/cubit/home_cubit.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 import 'package:property_management_system/injection_container.dart';
@@ -61,10 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SafeArea(
         child: Scaffold(
           extendBodyBehindAppBar: true,
-          floatingActionButton: FloatingActionButton(onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => AddScreen()));
-          }),
+          floatingActionButton: (sl<HomeCubit>().identity != null &&
+                  sl<HomeCubit>().identity!.user_role == 1)
+              ? FloatingActionButton(onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AddScreen()));
+                })
+              : null,
           appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
           drawer: AppDrawer(),
           body: BlocBuilder(
@@ -143,7 +147,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             backgroundColor: white.withOpacity(0.9),
                             radius: 24,
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => FilterScreen(),
+                                    ));
+                              },
                               icon: Icon(Icons.filter_list_alt),
                               color: Colors.grey.shade800,
                             ),
@@ -231,8 +241,10 @@ Widget realEstateItem(
                       topRight: Radius.circular(20)),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image:
-                        AdvancedNetworkImage(propertyLocalModel.photo!.first),
+                    image: AdvancedNetworkImage(
+                      propertyLocalModel.photo!.first,
+                      timeoutDuration: Duration(seconds: 2),
+                    ),
                   ),
                 ),
               ),
@@ -279,7 +291,7 @@ Widget realEstateItem(
                 bottom: 15,
                 right: 22,
                 child: Text(
-                  '80 views',
+                  '${propertyLocalModel.viewCount} views',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.white,

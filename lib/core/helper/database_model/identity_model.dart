@@ -1,5 +1,6 @@
 class MyIdentity {
   int? id;
+  int? serverId;
   String? name;
   String? token;
   String? imageUrl;
@@ -14,7 +15,8 @@ class MyIdentity {
       this.email,
       this.imageUrl,
       this.phoneNumber,
-      this.user_role});
+      this.user_role,
+      required this.serverId});
 
   MyIdentity copyWith(
           {String? token,
@@ -23,8 +25,10 @@ class MyIdentity {
           String? email,
           String? phoneNumber,
           int? uesr_role,
-          String? imageUrl}) =>
+          String? imageUrl,
+          int? serverId}) =>
       MyIdentity(
+          serverId: serverId ?? this.serverId,
           id: id ?? this.id,
           token: token ?? this.token,
           name: name ?? this.name,
@@ -41,10 +45,12 @@ class MyIdentity {
     imageUrl = json['imageUrl'];
     phoneNumber = json['phoneNumber'];
     user_role = json['user_role'];
+    serverId = json['serverId'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['serverId'] = this.serverId;
     data['id'] = this.id;
     data['name'] = this.name;
     data['token'] = this.token;
@@ -56,6 +62,7 @@ class MyIdentity {
   }
 
   factory MyIdentity.fromMap(Map<String, dynamic> json) => MyIdentity(
+        serverId: json["serverId"] == null ? null : json["serverId"],
         id: json["id"] == null ? null : json["id"],
         name: json["name"] == null ? null : json["name"],
         token: json["token"] == null ? null : json["token"],
@@ -73,5 +80,6 @@ class MyIdentity {
         "email": email == null ? null : email,
         "imageUrl": imageUrl == null ? null : imageUrl,
         "phoneNumber": phoneNumber == null ? null : phoneNumber,
+        "serverId": serverId == null ? null : serverId,
       };
 }

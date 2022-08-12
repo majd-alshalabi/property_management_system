@@ -18,8 +18,8 @@ class FilterScreen extends StatefulWidget {
 class _FilterScreenState extends State<FilterScreen> {
   SfRangeValues _values = const SfRangeValues(40.0, 80.0);
   List<bool> isSelected = [true, false];
-  List<bool> isSelectedBathRoom = [true, false, false, false, false];
-  List<bool> isSelectedBedRoom = [true, false, false, false, false];
+  List<bool> isSelectedBathRoom = [true, false, false, false, false, false];
+  List<bool> isSelectedBedRoom = [true, false, false, false, false, false];
   var Selected = true;
   var Selected1 = true;
   var Selected2 = true;
@@ -106,7 +106,13 @@ class _FilterScreenState extends State<FilterScreen> {
                 Container(
                   width: 110.0,
                   child: ChoiceChip(
-                    label: Text("Residentail"),
+                    label: Text(
+                      "Residentail",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Selected ? Colors.white : Colors.blue,
+                          fontSize: 15),
+                    ),
                     selected: Selected,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
@@ -123,7 +129,13 @@ class _FilterScreenState extends State<FilterScreen> {
                 Container(
                   width: 110.0,
                   child: ChoiceChip(
-                    label: Text("commerical"),
+                    label: Text(
+                      "commerical",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Selected1 ? Colors.white : Colors.blue,
+                          fontSize: 15),
+                    ),
                     selected: Selected1,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
@@ -140,7 +152,13 @@ class _FilterScreenState extends State<FilterScreen> {
                 Container(
                   width: 110.0,
                   child: ChoiceChip(
-                    label: Text("industrail"),
+                    label: Text(
+                      "industrail",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Selected2 ? Colors.white : Colors.blue,
+                          fontSize: 15),
+                    ),
                     selected: Selected2,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
@@ -177,6 +195,13 @@ class _FilterScreenState extends State<FilterScreen> {
                   highlightColor: Colors.black26,
                   fillColor: Colors.blue,
                   children: const [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Text(
+                        "none",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.0),
                       child: Text(
@@ -254,6 +279,13 @@ class _FilterScreenState extends State<FilterScreen> {
                   fillColor: Colors.blue,
                   // ignore:
                   children: const [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Text(
+                        "none",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.0),
                       child: Text(

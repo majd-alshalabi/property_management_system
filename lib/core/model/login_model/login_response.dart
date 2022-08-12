@@ -29,7 +29,7 @@ class Data {
   String? name;
   String? email;
   String? phoneNo;
-  int? user_role;
+  String? user_role;
   String? userImageUri;
   String? updatedAt;
   String? createdAt;

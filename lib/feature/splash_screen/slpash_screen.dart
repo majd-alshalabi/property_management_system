@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:property_management_system/core/constant/colors.dart';
 import 'package:property_management_system/feature/home_screen/home_screen.dart';
-import 'package:property_management_system/feature/map_screen/map_screen.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 import 'package:property_management_system/feature/splash_screen/bloc/splash_screen_bloc.dart';
 import 'package:property_management_system/injection_container.dart';
-
-import 'package:property_management_system/core/constant/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -34,6 +32,20 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Container(
                 color: teal,
+                child: Center(
+                    child: GradientIcon(
+                  Icons.format_paint,
+                  100.0,
+                  LinearGradient(
+                    colors: <Color>[
+                      Colors.yellow,
+                      Colors.greenAccent,
+                      Colors.blue,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                )),
               ),
               if (state is SplashScreenRejectPermissionState)
                 Positioned(
@@ -93,6 +105,37 @@ class _SplashScreenState extends State<SplashScreen> {
           }
         },
       ),
+    );
+  }
+}
+
+class GradientIcon extends StatelessWidget {
+  GradientIcon(
+    this.icon,
+    this.size,
+    this.gradient,
+  );
+
+  final IconData icon;
+  final double size;
+  final Gradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      child: SizedBox(
+        width: size * 1.2,
+        height: size * 1.2,
+        child: Icon(
+          icon,
+          size: size,
+          color: Colors.white,
+        ),
+      ),
+      shaderCallback: (Rect bounds) {
+        final Rect rect = Rect.fromLTRB(0, 0, size, size);
+        return gradient.createShader(rect);
+      },
     );
   }
 }

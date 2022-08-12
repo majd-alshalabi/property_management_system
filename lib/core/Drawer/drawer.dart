@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage_2/provider.dart';
 import 'package:property_management_system/core/Drawer/bloc/home_drawer_cubit/cubit/home_drawer_cubit.dart';
 import 'package:property_management_system/core/Drawer/drawer_Item.dart';
-import 'package:property_management_system/core/helper/http_helper.dart';
 import 'package:property_management_system/feature/favorite_screen/favorite_screen.dart';
 import 'package:property_management_system/feature/home_screen/bloc/cubit/home_cubit.dart';
-import 'package:property_management_system/feature/login_screen/login_screen.dart';
 import 'package:property_management_system/feature/map_screen/map_screen.dart';
-import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 import 'package:property_management_system/feature/settings_screen/settings_screen.dart';
 import 'package:property_management_system/injection_container.dart';
 
@@ -54,13 +51,14 @@ class AppDrawer extends StatelessWidget {
                         fit: BoxFit.cover,
                         image: sl<HomeCubit>().identity == null
                             ? AssetImage('assets/images/123.jpg')
-                            : NetworkImage(
+                            : AdvancedNetworkImage(
                                 sl<HomeCubit>().identity!.imageUrl ?? "",
+                                timeoutDuration: Duration(seconds: 10)
                                 // useDiskCache: true,
                                 // cacheRule: const CacheRule(
                                 //   maxAge: Duration(days: 7),
                                 // ),
-                              ) as ImageProvider,
+                                ) as ImageProvider,
                       ),
                       color: Colors.grey.shade900,
                       boxShadow: [BoxShadow(blurRadius: 20)],
@@ -113,13 +111,14 @@ class AppDrawer extends StatelessWidget {
                           image: DecorationImage(
                             image: sl<HomeCubit>().identity == null
                                 ? AssetImage('assets/images/123.jpg')
-                                : NetworkImage(
+                                : AdvancedNetworkImage(
                                     sl<HomeCubit>().identity!.imageUrl ?? "",
+                                    timeoutDuration: Duration(seconds: 10)
                                     // useDiskCache: true,
                                     // cacheRule: const CacheRule(
                                     //   maxAge: Duration(days: 7),
                                     // ),
-                                  ) as ImageProvider,
+                                    ) as ImageProvider,
                           ),
                           color: grey,
                           shape: BoxShape.circle,
@@ -154,14 +153,17 @@ class AppDrawer extends StatelessWidget {
                   icon: Icons.home_outlined,
                   onPressed: () => onItemPressed(context, index: 0),
                 ),
+                if (sl<HomeCubit>().identity != null &&
+                    sl<HomeCubit>().identity!.user_role == 1)...[
                 const SizedBox(
                   height: 20.0,
                 ),
-                DrawerItem(
-                  name: 'My Favorite',
-                  icon: Icons.favorite_border,
-                  onPressed: () => onItemPressed(context, index: 1),
-                ),
+
+                  DrawerItem(
+                    name: 'My Favorite',
+                    icon: Icons.favorite_border,
+                    onPressed: () => onItemPressed(context, index: 1),
+                  ),],
                 const SizedBox(
                   height: 20.0,
                 ),
@@ -187,7 +189,7 @@ class AppDrawer extends StatelessWidget {
                   color: black,
                 ),
                 const SizedBox(
-                  height: 40.0,
+                  height: 20.0,
                 ),
                 DrawerItem(
                   name: 'Sign Out',
