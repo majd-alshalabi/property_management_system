@@ -32,6 +32,7 @@ dependencies:
   syncfusion_flutter_sliders: ^20.2.40
   chips_choice: ^2.0.1
   flutter_swiper_null_safety: ^1.0.2
+  comment_box: ^0.0.17
 
   sqflite: ^2.0.2
 

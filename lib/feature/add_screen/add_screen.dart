@@ -179,6 +179,65 @@ class _AddScreenState extends State<AddScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Proprty State",
+                          style: TextStyle(color: Colors.black54),
+                        ),
+                        Spacer(),
+                        Container(
+                          height: 30.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              color: Colors.black12),
+                          child: ToggleButtons(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: Colors.white,
+                            // selectedBorderColor: Colors.black,
+                            selectedColor: Colors.white,
+                            renderBorder: false,
+                            highlightColor: Colors.black26,
+                            fillColor: Colors.green,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: const Text(
+                                  "FOR RENT",
+                                  style: TextStyle(fontSize: 12.0),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: const Text(
+                                  "FOR SALE",
+                                  style: TextStyle(fontSize: 12.0),
+                                ),
+                              )
+                            ],
+                            isSelected: isSelectedState,
+                            onPressed: (int newindex) {
+                              setState(() {
+                                for (int i = 0;
+                                    i < isSelectedState.length;
+                                    i++) {
+                                  if (i == newindex) {
+                                    isSelectedState[i] = true;
+                                  } else {
+                                    isSelectedState[i] = false;
+                                  }
+                                }
+                              });
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                   textAdd(
                     typ: TextInputType.text,
                     controller: name,

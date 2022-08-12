@@ -125,7 +125,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) => CommentsScreen())));
+                                builder: ((context) => TestMe())));
                       },
                       height: 50.0,
                       text: "comments",
