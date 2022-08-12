@@ -1,4 +1,6 @@
-class PropertyLocalModel {
+import 'package:property_management_system/core/model/property_model/my_property_server_model.dart';
+
+class MyPropertyLocalModel {
   int? id;
   String? name;
   String? description;
@@ -13,10 +15,14 @@ class PropertyLocalModel {
   String? propartytype;
   int? userId;
   String? deletedAt;
-  List<String>? photo;
+  int? commentCount;
   int? viewCount;
+  int? likeCount;
+  List<String>? comment;
+  User? user;
+  List<String>? photo;
 
-  PropertyLocalModel(
+  MyPropertyLocalModel(
       {this.id,
       this.name,
       this.description,
@@ -31,6 +37,10 @@ class PropertyLocalModel {
       this.propartytype,
       this.userId,
       this.deletedAt,
-      this.photo,
-      required this.viewCount});
+      this.commentCount,
+      this.viewCount,
+      this.likeCount,
+      this.comment,
+      this.user,
+      this.photo});
 }

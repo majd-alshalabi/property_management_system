@@ -29,7 +29,7 @@ class Data {
   String? name;
   String? email;
   String? phoneNo;
-  int? user_role;
+  String? user_role;
   String? userImageUri;
   String? updatedAt;
   String? createdAt;
@@ -48,7 +48,7 @@ class Data {
     name = json['name'];
     email = json['email'];
     phoneNo = json['phone_no'];
-    user_role = json['user_role'];
+    user_role = json['role'];
     userImageUri = json['photo'];
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
@@ -60,7 +60,7 @@ class Data {
     data['name'] = this.name;
     data['email'] = this.email;
     data['phone_no'] = this.phoneNo;
-    data['user_role'] = this.phoneNo;
+    data['role'] = this.user_role;
     data['photo'] = this.userImageUri;
     data['updated_at'] = this.updatedAt;
     data['created_at'] = this.createdAt;

@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:path/path.dart';
 import 'package:property_management_system/core/helper/database_model/identity_model.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = new DatabaseHelper.internal();
@@ -53,7 +53,7 @@ class DatabaseHelper {
   FutureOr<void> _onCreate(Database db, int version) async {
     // When creating the db, create the table
     await db.execute(
-        "create table myIdentity(id integer primary key autoincrement,token TEXT,name TEXT,email TEXT,user_role  intger,imageUrl TEXT,phoneNumber TEXT)");
+        "create table myIdentity(id integer primary key autoincrement,token TEXT,name TEXT,email TEXT,user_role integer,imageUrl TEXT,phoneNumber TEXT,serverId integer)");
   }
 
   /////////////// Identity
@@ -79,6 +79,17 @@ class DatabaseHelper {
     return identity.first.token;
   }
 
+  getServerIdFromMyIdentity() async {
+    Database? db = await createDb();
+    List<MyIdentity>? identity;
+
+    var res = await db!.query("myIdentity");
+    identity = res.isNotEmpty
+        ? res.map((chat) => MyIdentity.fromMap(chat)).toList()
+        : [];
+    return identity.first.serverId;
+  }
+
   insertMyIdentity(MyIdentity identity) async {
     Database? db = await createDb();
     await db!.insert('myIdentity', identity.toMap());
@@ -93,6 +104,7 @@ class DatabaseHelper {
           'myIdentity',
           myIdentity.first
               .copyWith(
+                  serverId: identity.serverId,
                   email: identity.email,
                   name: identity.name,
                   token: identity.token,

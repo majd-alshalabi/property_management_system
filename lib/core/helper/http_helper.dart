@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:either_dart/either.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:property_management_system/core/helper/database_helper.dart';
 import 'package:property_management_system/core/model/login_model/login_params.dart';
 import 'package:property_management_system/core/model/login_model/login_response.dart';
+import 'package:property_management_system/core/model/property_model/my_property_server_model.dart';
 import 'package:property_management_system/core/model/property_model/property_details_model.dart';
 import 'package:property_management_system/core/model/property_model/property_model.dart';
 import 'package:property_management_system/core/model/property_model/property_server_model.dart';
@@ -32,8 +34,10 @@ class HttpHelper {
       if (response.statusCode >= 300) return Right('error while connecting');
       final respStr = await response.stream.bytesToString();
       var decodedResponse = json.decode(respStr);
+      print(decodedResponse);
       return Left(RegisterResponse.fromJson(decodedResponse));
     } catch (e) {
+      print(e);
       return Right('error while connecting');
     }
   }
@@ -53,6 +57,7 @@ class HttpHelper {
       print(response.statusCode);
       if (response.statusCode >= 300) return Right('error while connecting');
       final respStr = await response.stream.bytesToString();
+      print(respStr);
       var decodedResponse = json.decode(respStr);
       return Left(RegisterResponse.fromJson(decodedResponse));
     } catch (e) {
@@ -133,20 +138,49 @@ class HttpHelper {
     }
   }
 
-  static Future<Either<PropertyServerModel, String>> getMapProperty(
-      List<Location> li) async {
+  static Future<Either<MyPropertyServerModel, String>> getMyProperty(
+      int id) async {
     try {
-      var url = Uri.parse(baseUrl_api + "/searchestateonmap");
+      var url = Uri.parse(baseUrl_api + "/getallEstate's/$id");
       String token = await db.getTokenFromMyIdentity();
       print(token);
 
       var response =
-          await http.post(url, headers: {"Authorization": "Bearer $token"});
-      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-      return Left(PropertyServerModel.fromJson(decodedResponse));
+          await http.get(url, headers: {"Authorization": "Bearer $token"});
+      print(response.body);
+      if (response.body.length < 20) return Right('error while connecting');
+      var decodedResponse =
+          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+
+      return Left(MyPropertyServerModel.fromJson(decodedResponse));
     } catch (e) {
       return Right('error while connecting');
     }
+  }
+
+  static Future<Either<PropertyServerModel, String>> getMapProperty(
+      List<LatLng> li) async {
+    if (li.length >= 3) {
+      try {
+        var url = Uri.parse(baseUrl_api +
+            "/searchestateonmap/${li[0].longitude}/${li[0].latitude}/${li[1].longitude}/${li[1].latitude}/${li[2].longitude}/${li[2].latitude}/${li[3].longitude}/${li[3].latitude}");
+        String token = await db.getTokenFromMyIdentity();
+        print(token);
+
+        var response =
+            await http.get(url, headers: {"Authorization": "Bearer $token"});
+        print(response.body);
+        var decodedResponse =
+            jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+        if (decodedResponse['success']) {
+          return Left(PropertyServerModel.fromJson(decodedResponse));
+        } else
+          return Right("error while connecting");
+      } catch (e) {
+        return Right('error while connecting');
+      }
+    } else
+      return Right('error while connecting');
   }
 
   static Future<Either<PropertyDetailsModel, String>> getPropertyDetails(
@@ -166,11 +200,24 @@ class HttpHelper {
       return Right('error while connecting');
     }
   }
-}
 
-class Location {
-  final double lat;
-  final double lang;
+  static Future<Either<String, String>> deleteProperty(int id) async {
+    try {
+      var url = Uri.parse(baseUrl_api + "/deleteEstate/$id");
+      String token = await db.getTokenFromMyIdentity();
+      print(token);
 
-  Location({required this.lat, required this.lang});
+      var response =
+          await http.delete(url, headers: {"Authorization": "Bearer $token"});
+      print(response.body);
+      var decodedResponse =
+          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      if (decodedResponse['success'] == true)
+        return Left('done');
+      else
+        return Right('error while connecting');
+    } catch (e) {
+      return Right('error while connecting');
+    }
+  }
 }

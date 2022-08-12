@@ -1,17 +1,16 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:meta/meta.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:property_management_system/core/constant/assets.dart';
 import 'package:property_management_system/core/helper/database_helper.dart';
 import 'package:property_management_system/core/helper/database_model/identity_model.dart';
 import 'package:property_management_system/core/helper/http_helper.dart';
 import 'package:property_management_system/core/model/register_model/register_params.dart';
-
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:path_provider/path_provider.dart';
-import 'package:property_management_system/core/model/register_model/register_response.dart';
 import 'package:property_management_system/core/utils/account_utils.dart';
+
 part 'reigster_screen_event.dart';
 part 'reigster_screen_state.dart';
 
@@ -36,14 +35,17 @@ class ReigsterScreenBloc
                 image: image)))
             .either((left) {
           if (left.data != null) {
+            print(left.data!.user_role);
+            print('sfsfffff');
             db.insertMyIdentity(MyIdentity(
+                serverId: left.data!.id,
                 email: left.data!.email,
                 imageUrl:
                     AccountUtils.setImagePath(left.data!.userImageUri ?? ""),
                 name: left.data!.name,
                 phoneNumber: left.data!.phoneNo,
                 token: left.token,
-                user_role: left.data!.user_role));
+                user_role: left.data!.user_role == 'manger' ? 1 : 0));
             emit(ReigsterScreenLoaded());
           }
         }, (right) {
@@ -59,13 +61,14 @@ class ReigsterScreenBloc
             .either((left) {
           if (left.data != null) {
             db.insertMyIdentity(MyIdentity(
+                serverId: left.data!.id,
                 email: left.data!.email,
                 imageUrl:
                     AccountUtils.setImagePath(left.data!.userImageUri ?? ""),
                 name: left.data!.name,
                 phoneNumber: left.data!.phoneNo,
                 token: left.token,
-                user_role: left.data!.user_role));
+                user_role: left.data!.user_role == 'manger' ? 1 : 0));
             emit(ReigsterScreenLoaded());
           }
         }, (right) {
