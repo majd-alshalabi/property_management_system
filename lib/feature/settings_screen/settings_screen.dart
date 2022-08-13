@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:property_management_system/feature/help_screen/help_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -12,6 +13,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late bool status = true;
   late bool status1 = true;
   late bool status2 = true;
+  // bool canCheckBiometrics;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +29,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             Text(
               "General",
+              style: TextStyle(color: Colors.green, fontSize: 20.0),
             ),
             SizedBox(
               height: 20.0,
@@ -34,15 +38,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 25.0),
-                  child: Icon(Icons.language),
+                  child: Icon(
+                    Icons.language,
+                    color: Colors.black54,
+                  ),
                 ),
                 Text(
                   "Language",
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: TextStyle(color: Colors.black54),
                 ),
                 Spacer(),
                 IconButton(
-                    onPressed: () {}, icon: Icon(Icons.arrow_forward_ios)),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => HelpScreen())));
+                    },
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black45,
+                    )),
               ],
             ),
             SizedBox(
@@ -52,48 +68,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 25.0),
-                  child: Icon(Icons.notifications),
-                ),
-                Text(
-                  "Push Notifications",
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-                Spacer(),
-                Container(
-                  child: FlutterSwitch(
-                    width: 55.0,
-                    height: 25.0,
-                    activeColor: Colors.teal,
-                    valueFontSize: 10.0,
-                    toggleSize: 30.0,
-                    value: status,
-                    borderRadius: 30.0,
-                    showOnOff: true,
-                    onToggle: (val) {
-                      setState(() {
-                        status = val;
-                      });
-                    },
+                  child: Icon(
+                    Icons.dark_mode,
+                    color: Colors.black54,
                   ),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 25.0),
-                  child: Icon(Icons.dark_mode),
+                Text(
+                  "Dark Mode",
+                  style: TextStyle(color: Colors.black54),
                 ),
-                Text("Dark Mode"),
                 Spacer(),
                 Container(
                   child: FlutterSwitch(
                     width: 55.0,
                     height: 25.0,
-                    activeColor: Colors.teal,
+                    activeColor: Colors.green,
                     valueFontSize: 10.0,
                     toggleSize: 30.0,
                     value: status1,
@@ -113,6 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Text(
               "Scurity",
+              style: TextStyle(color: Colors.green, fontSize: 20.0),
             ),
             SizedBox(
               height: 20.0,
@@ -123,13 +113,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: const EdgeInsets.only(right: 25.0),
                   child: Icon(Icons.fingerprint),
                 ),
-                Text("Use fingerprint"),
+                Text(
+                  "Use fingerprint",
+                  style: TextStyle(color: Colors.black54),
+                ),
                 Spacer(),
                 Container(
                   child: FlutterSwitch(
                     width: 55.0,
                     height: 25.0,
-                    activeColor: Colors.teal,
+                    activeColor: Colors.green,
                     valueFontSize: 10.0,
                     toggleSize: 30.0,
                     value: status2,
@@ -149,6 +142,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Text(
               "Others",
+              style: TextStyle(color: Colors.green, fontSize: 20.0),
             ),
             SizedBox(
               height: 20.0,
@@ -157,9 +151,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 25.0),
-                  child: Icon(Icons.help),
+                  child: Icon(Icons.help, color: Colors.black54),
                 ),
-                TextButton(onPressed: () {}, child: Text('help'))
+                Container(
+                    child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'help',
+                          style: TextStyle(color: Colors.black54),
+                        )))
               ],
             )
           ],

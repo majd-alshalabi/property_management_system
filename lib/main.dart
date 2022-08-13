@@ -7,7 +7,10 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:property_management_system/feature/add_screen/add_screen.dart';
 import 'package:property_management_system/feature/comments_screen/comments_screen.dart';
 import 'package:property_management_system/feature/details_screen/details_screen.dart';
+import 'package:property_management_system/feature/edit_screen/edit_screen.dart';
 import 'package:property_management_system/feature/favorite_screen/favorite_screen.dart';
+import 'package:property_management_system/feature/help_screen/help_screen.dart';
+import 'package:property_management_system/feature/home_screen/home_screen.dart';
 import 'package:property_management_system/feature/login_screen/login_screen.dart';
 import 'package:property_management_system/feature/reigster/reigster_screen.dart';
 import 'package:property_management_system/feature/settings_screen/settings_screen.dart';
@@ -26,7 +29,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.green,
           titleTextStyle: TextStyle(color: Colors.white),
           centerTitle: true,
 
@@ -64,10 +66,10 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: sl<MainCubit>().isDark ? ThemeMode.dark : ThemeMode.light,
       darkTheme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.green,
         scaffoldBackgroundColor: Color(0xFF333739),
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.green,
           titleTextStyle: TextStyle(color: Colors.white),
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Color(0xFF333739),
@@ -94,7 +96,7 @@ class MyApp extends StatelessWidget {
           useDefaultLoading: false,
           overlayWidget: Center(
               child: SpinKitSpinningLines(
-            color: Colors.teal,
+            color: Colors.green,
             size: 50.0,
           )),
           child: SplashScreen()),
